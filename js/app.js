@@ -1,6 +1,6 @@
-var SearchViewModel = function(){
+var SearchViewModel = function(address){
     var self = this;
-    self.searchValue = ko.observable('Hamburg');
+    self.searchValue = ko.observable(address.name);
 
     self.search = function() {
         googleMaps.search(self.searchValue());
@@ -34,10 +34,15 @@ var SearchViewModel = function(){
     //});
 };
 
-googleMaps.initialize(document.getElementById("map_canvas"),
-    53.5510846, 9.9936818);
-ko.applyBindings(new SearchViewModel());
+var initialAddress = {
+    name: 'Hamburg, Germany',
+    lat: 53.5510846,
+    lng: 9.9936818
+};
 
-//$(document).ready(function() {
-//});
+$(document).ready(function() {
+    var mapCanvas = document.getElementById("map_canvas");
+    googleMaps.initialize(mapCanvas, initialAddress);
+    ko.applyBindings(new SearchViewModel(initialAddress));
+});
 
