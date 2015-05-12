@@ -75,11 +75,8 @@ var SearchViewModel = function(){
         if (undefined === selected) {
             return;
         }
+        self.searchValue(selected.name);
         googleMaps.setLocation(selected.result);
-    });
-
-    self.searchProposals = ko.computed(function() {
-
     });
 };
 

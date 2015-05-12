@@ -12,8 +12,6 @@
             <label for="location-search">Suche</label>
             <input type="text" id="location-search"
                    data-bind='value: searchValue, valueUpdate: "afterkeydown", event: { keyup: search }'/>
-            <select  data-bind="options: searchResults, optionsText: 'name', value: selectedAddress, optionsCaption: 'Choose...'"> </select>
-
 
             <div class="suggestions">
                 <ul data-bind="foreach: searchResults">
@@ -21,7 +19,7 @@
                 </ul>
             </div>
         </form>
-        <p data-bind="text: searchValue" id="test"></p>
+
         <div class="footer">
             <h3>Credits</h3>
             <ul>

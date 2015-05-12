@@ -38,3 +38,13 @@ body {
 .suggestions li:hover{
     background-color: aqua;
 }
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    font-size: 10px;
+}
+
+.footer li {
+    list-style: none;
+}
