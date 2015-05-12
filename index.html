@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link href="css/main.css" rel="stylesheet">
+
+</head>
+<body>
+    <div id="left-menu">
+        <form>
+            <label for="location-search">Suche</label>
+            <input type="text" id="location-search"
+                   data-bind='value: searchValue, valueUpdate: "afterkeydown", event: { keyup: search }'/>
+            <select id="suggestions" data-bind="options: searchResults, optionsText: 'name', value: selectedAddress, optionsCaption: 'Choose...'"> </select>
+        </form>
+        <p data-bind="text: searchValue" id="test"></p>
+        <div class="footer">
+            <h3>Credits</h3>
+            <ul>
+                <li>Icons taken from <a href="https://mapicons.mapsmarker.com">Maps Icons Collection</a>
+            </ul>
+        </div>
+    </div>
+    <div id="map_canvas"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/knockout-3.3.0.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
