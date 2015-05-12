@@ -55,9 +55,15 @@ var SearchViewModel = function(){
     };
 
     self.searchResults = ko.observableArray([]);
-    self.selectedAddress = ko.observable();
-    self.selectAddress = function() {
-        self.selectedAddress(this);
+    //self.selectedAddress = ko.observable();
+    self.selectAddress = function(selected) {
+        if (undefined === selected) {
+            return;
+        }
+        //    self.selectedAddress(this);
+        self.searchValue(selected.name);
+        self.searchResults([]);
+        googleMaps.setLocation(selected.result);
     };
 
     googleMaps.searchResults.subscribe(function() {
@@ -71,13 +77,9 @@ var SearchViewModel = function(){
         self.searchResults(formatted);
     });
 
-    self.selectedAddress.subscribe(function(selected) {
-        if (undefined === selected) {
-            return;
-        }
-        self.searchValue(selected.name);
-        googleMaps.setLocation(selected.result);
-    });
+    //self.selectedAddress.subscribe(function(selected) {
+    // TODO
+    //});
 };
 
 googleMaps.initialize(document.getElementById("map_canvas"),
