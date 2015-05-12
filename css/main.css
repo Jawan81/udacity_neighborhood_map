@@ -3,15 +3,38 @@ html {
 }
 
 body {
-    height: 100%; margin: 0; padding: 0
+    height: 100%; margin: 0; padding: 0;
+    font-family: Verdana, Arial, sans-serif;
 }
 
 #map_canvas {
     height: 100%;
-    margin-left: 200px;
+    margin-left: 300px;
 }
 #left-menu {
-    width: 200px;
+    width: 300px;
     float: left;
     height: 100%;
+}
+.suggestions {
+    border-radius: 2px;
+    border-top: 1px solid #393939;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    display: block;
+    font-size: 15px;
+    z-index: 5;
+}
+
+.suggestions ul {
+    vertical-align: baseline;
+    margin: 0;
+    padding: 0 0 0 40px;
+}
+
+.suggestions li{
+    list-style-image: url('../icons/moderntower.png');
+    border: 1px solid #a9a9a9;
+}
+.suggestions li:hover{
+    background-color: aqua;
 }

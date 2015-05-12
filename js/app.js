@@ -56,6 +56,9 @@ var SearchViewModel = function(){
 
     self.searchResults = ko.observableArray([]);
     self.selectedAddress = ko.observable();
+    self.selectAddress = function() {
+        self.selectedAddress(this);
+    };
 
     googleMaps.searchResults.subscribe(function() {
         var results = googleMaps.searchResults();
