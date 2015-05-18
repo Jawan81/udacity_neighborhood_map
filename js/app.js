@@ -7,7 +7,7 @@ var SearchViewModel = function(address){
     };
 
     self.searchResults = ko.observableArray([]);
-    //self.selectedAddress = ko.observable();
+
     self.selectAddress = function(selected) {
         if (undefined === selected) {
             return;
@@ -44,5 +44,75 @@ $(document).ready(function() {
     var mapCanvas = document.getElementById("map-canvas");
     googleMaps.initialize(mapCanvas, initialAddress);
     ko.applyBindings(new SearchViewModel(initialAddress));
+    google.maps.event.addListenerOnce(googleMaps.map, 'idle', function(){
+        yelp.initialize({
+            apiKey: "E64ahrrCO0X_zDyPHQDYrw",
+            callback: function(places) {
+                console.log('Yelp callback called');
+                console.log(places);
+                // TODO: Do something with the places
+            },
+            map: googleMaps.map
+        });
+
+        // TODO: Define search terms
+        yelp.search('cafes');
+    });
+    google.maps.event.addListener(googleMaps.map, 'center_changed', function() {
+
+        yelp.search({
+            search: 'cafes',
+            map: googleMaps.map
+        });
+        // 3 seconds after the center of the map has changed, pan back to the
+        // marker.
+        //window.setTimeout(function() {
+        //    map.panTo(marker.getPosition());
+        //}, 3000);
+    });
+
+    //var yelpKey = "E64ahrrCO0X_zDyPHQDYrw";
+    //
+    //
+    //window.setTimeout(function() {
+    //    var mapBounds = googleMaps.map.getBounds();
+    //    var yelpUrl = "http://api.yelp.com/" +
+    //        "business_review_search?"+
+    //        //"callback=" + "handleResults" +
+    //        "&term=" + "hamburg restaurant" + //document.getElementById("term").value +
+    //        "&num_biz_requested=10" +
+    //        "&tl_lat=" + mapBounds.getSouthWest().lat() +
+    //        "&tl_long=" + mapBounds.getSouthWest().lng() +
+    //        "&br_lat=" + mapBounds.getNorthEast().lat() +
+    //        "&br_long=" + mapBounds.getNorthEast().lng() +
+    //        "&ywsid=" + yelpKey;
+    //    var yelpRequestUrl = encodeURI(yelpUrl);
+    //
+    //    $.ajax({
+    //        url: yelpRequestUrl,
+    //        jsonp: "callback",
+    //        //success: function(data) {
+    //        //    console.log("jsonp success() called:");
+    //        //    console.log(data);
+    //        //},
+    //        //jsonpCallback: function(data){
+    //        //    console.log("jsonp callback succeeded:");
+    //        //    console.log(data);
+    //        //},
+    //        dataType: "jsonp"
+    //    }).done(function(data) {
+    //        console.log("Yelp request succeeded:");
+    //        console.log(data);
+    //    }).fail(function() {
+    //        console.log("Yelp request failed.");
+    //    });
+    //
+    //    //var script = document.createElement('script');
+    //    //script.src = yelpUrl;
+    //    //script.type = 'text/javascript';
+    //    //var head = document.getElementsByTagName('head').item(0);
+    //    //head.appendChild(script);
+    //}, 3000);
+
 });
 
