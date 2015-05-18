@@ -1,50 +1,85 @@
-html {
-    height: 100%
+
+html, body, #map-canvas, .content {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    height: 100%; margin: 0; padding: 0;
     font-family: Verdana, Arial, sans-serif;
 }
-
-#map_canvas {
-    height: 100%;
-    margin-left: 300px;
+h3 {
+    font-size: 12px;
 }
-#left-menu {
+
+/*.content {*/
+    /*position: relative;*/
+/*}*/
+
+/*#map-canvas {*/
+    /*height: 100%;*/
+    /*margin-left: 300px;*/
+/*}*/
+
+#panel {
+    position: absolute;
+    left: 20px;
+    top: 20px;
     width: 300px;
-    float: left;
-    height: 100%;
+    min-height: 400px;
+    background-color: white;
+    opacity: 0.9;
+    box-shadow: 5px 5px 5px #393939;
+    /*float: left;*/
+    z-index: 5;
+    padding: 10px;
+    /*height: 100%;*/
 }
 .suggestions {
     border-radius: 2px;
     border-top: 1px solid #393939;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    display: block;
+    /*display: block;*/
     font-size: 15px;
-    z-index: 5;
+    z-index: 6;
 }
 
 .suggestions ul {
     vertical-align: baseline;
     margin: 0;
-    padding: 0 0 0 40px;
+    padding: 0;
+    /*padding: 0 0 0 40px;*/
 }
 
-.suggestions li{
-    list-style-image: url('../icons/moderntower.png');
+.suggestions ul li {
+    opacity: 1;
+    list-style: none;
+    /*list-style-image: url('../icons/moderntower.png');*/
     border: 1px solid #a9a9a9;
+    background-color: white;
 }
-.suggestions li:hover{
+
+.suggestions li img {
+    vertical-align: middle;
+}
+
+.suggestions ul li:hover{
     background-color: beige;
+    cursor: pointer;
 }
 
 .footer {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     font-size: 10px;
 }
 
 .footer li {
     list-style: none;
+}
+
+.filters {
+    position: absolute;
+    top: 80px;
+    z-index: -1;
 }

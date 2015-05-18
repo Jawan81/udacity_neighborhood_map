@@ -7,7 +7,7 @@
 
 </head>
 <body>
-    <div id="left-menu">
+    <div id="panel">
         <form>
             <label for="location-search">Suche</label>
             <input type="text" id="location-search"
@@ -15,11 +15,18 @@
 
             <div class="suggestions">
                 <ul data-bind="foreach: searchResults">
-                    <li data-bind="text: name, click: $parent.selectAddress"></li>
+                    <li>
+                        <img src="./icons/moderntower.png">
+                        <span data-bind="text: name, click: $parent.selectAddress"></span>
+                    </li>
                 </ul>
             </div>
         </form>
 
+        <div class="filters">
+            <h3>Filters</h3>
+
+        </div>
         <div class="footer">
             <h3>Credits</h3>
             <ul>
@@ -27,8 +34,7 @@
             </ul>
         </div>
     </div>
-    <div id="map_canvas"></div>
-
+    <div id="map-canvas"></div>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/knockout-3.3.0.js"></script>

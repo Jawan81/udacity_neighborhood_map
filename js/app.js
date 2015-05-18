@@ -41,7 +41,7 @@ var initialAddress = {
 };
 
 $(document).ready(function() {
-    var mapCanvas = document.getElementById("map_canvas");
+    var mapCanvas = document.getElementById("map-canvas");
     googleMaps.initialize(mapCanvas, initialAddress);
     ko.applyBindings(new SearchViewModel(initialAddress));
 });
