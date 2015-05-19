@@ -41,6 +41,11 @@ function Place(data) {
                 return data.address;
             }
         },
+        "icon": {
+            get: function() {
+                return data.icon;
+            }
+        },
         "url": {
             get: function() {
                 return data.url;

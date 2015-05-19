@@ -11,6 +11,8 @@ var yelp = {
     lastResults: [],
     requestUrl: "http://api.yelp.com",
     resultsCallback: null,
+    map: null,
+    blocked: false,
     initialize: function(data) {
         this.apiKey = data.apiKey;
         this.resultsCallback = data.callback;
@@ -19,12 +21,15 @@ var yelp = {
             this.numResults = parseInt(data.numResults);
         }
 
-        if (undefined !== data.map) {
-            this.setMapBounds(data.map);
-        }
+        this.map = data.map;
+        this.setMapBounds();
+
+        //if (undefined !== data.map) {
+        //    this.setMapBounds(data.map);
+        //}
     },
-    setMapBounds: function(map) {
-        var mapBounds = map.getBounds();
+    setMapBounds: function() {
+        var mapBounds = this.map.getBounds();
         this.mapBounds.tlLat = mapBounds.getSouthWest().lat();
         this.mapBounds.tlLng = mapBounds.getSouthWest().lng();
         this.mapBounds.brLat = mapBounds.getNorthEast().lat();
@@ -47,6 +52,15 @@ var yelp = {
         var self = this;
         var searchTerm = '';
 
+        // avoid calling the API too often
+        if (self.blocked) {
+            return;
+        }
+        self.blocked = true;
+        setTimeout(function() {
+            self.blocked = false;
+        }, 2000);
+
         if ("string" === typeof data) {
             searchTerm = data;
         }
@@ -54,11 +68,8 @@ var yelp = {
         if((typeof data === "object") && (data !== null)) {
             searchTerm = data.search;
 
-            if (undefined !== data.map) {
-                this.setMapBounds(data.map);
-            }
             if (undefined !== data.callback) {
-                this.resultsCallback = data.callback;
+                self.resultsCallback = data.callback;
             }
         }
 
@@ -66,6 +77,7 @@ var yelp = {
             return;
         }
 
+        this.setMapBounds();
         this.setUpRequestUrl(searchTerm);
 
         $.ajax({
@@ -82,11 +94,7 @@ var yelp = {
         var self = this;
         self.lastResults = [];
 
-        console.log('processResults');
-        console.log(results);
-
-        //var numBusinesses = results.businesses.length;
-        //var numUpdated = 0;
+        console.log('processResults: ' + results.businesses.length);
 
         results.businesses.forEach(function(business) {
             var place = new Place({

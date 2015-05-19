@@ -15,7 +15,10 @@ var SearchViewModel = function(address){
         //    self.selectedAddress(this);
         self.searchValue(selected.name);
         self.searchResults([]);
-        googleMaps.setLocation(selected.result);
+        googleMaps.setCenter({
+            name: selected.name,
+            location: selected.result.geometry.location}
+        );
     };
 
     googleMaps.searchResults.subscribe(function() {
@@ -49,18 +52,22 @@ $(document).ready(function() {
             apiKey: "E64ahrrCO0X_zDyPHQDYrw",
             callback: function(place) {
                 console.log('Yelp callback called');
-                //console.log(places);
-
-                //places.forEach(function(place) {
-                    googleMaps.createMarker(place.location);
-                //});
-                // TODO: Do something with the places
+                googleMaps.createMarker(place, 'icon/pagoda-2.png');
             },
             map: googleMaps.map
         });
 
+        googlePlaces.initialize({
+            map: googleMaps.map,
+            resultCallback: function(place) {
+                console.log('Google Places callback called');
+                googleMaps.createMarker(place, place.icon /* 'icon/pyramid.png'*/);
+            }
+        });
+
         // TODO: Define search terms
         yelp.search('cafes');
+        googlePlaces.search(['store']);
     });
     //var place = new Place({
     //    name: 'Hamburg',
@@ -87,9 +94,10 @@ $(document).ready(function() {
     google.maps.event.addListener(googleMaps.map, 'center_changed', function() {
 
         yelp.search({
-            search: 'cafes',
-            map: googleMaps.map
+            search: 'cafes'
         });
+
+        googlePlaces.search(['store']);
         // 3 seconds after the center of the map has changed, pan back to the
         // marker.
         //window.setTimeout(function() {

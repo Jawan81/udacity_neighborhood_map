@@ -10,7 +10,8 @@ var googleMaps = {
         };
         this.geocoder = new google.maps.Geocoder();
         this.map = new google.maps.Map(mapCanvas, mapOptions);
-        this.createMarker(latLng, 'icons/moderntower.png');
+        this.infowindow =  new google.maps.InfoWindow();
+        this.createMarker({location:latLng, name: address.name}, 'icon/moderntower.png');
     },
     search: function(address) {
         var self = this;
@@ -43,19 +44,23 @@ var googleMaps = {
             }
         });
     },
-    setLocation: function(geoResult) {
+    setCenter: function(place) {
         var self = this;
-        var location = geoResult.geometry.location;
-        self.map.setCenter(location);
-        this.createMarker(location, 'icons/moderntower.png');
+        self.map.setCenter(place.location);
+        this.createMarker(place, 'icon/moderntower.png');
     },
-    createMarker: function(location, icon) {
+    createMarker: function(place, icon) {
         var self = this;
 
         var marker = new google.maps.Marker({
             map: self.map,
-            position: location,
+            position: place.location,
             icon: icon
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+            self.infowindow.setContent(place.name);
+            self.infowindow.open(self.map, this);
         });
     }
 };
