@@ -17,8 +17,9 @@ var SearchViewModel = function(address){
         self.searchResults([]);
         googleMaps.setCenter({
             name: selected.name,
-            location: selected.result.geometry.location}
-        );
+            location: selected.result.geometry.location,
+            icon: 'icon/moderntower.png'
+        });
     };
 
     googleMaps.searchResults.subscribe(function() {
@@ -52,7 +53,7 @@ $(document).ready(function() {
             apiKey: "E64ahrrCO0X_zDyPHQDYrw",
             callback: function(place) {
                 console.log('Yelp callback called');
-                googleMaps.createMarker(place, 'icon/pagoda-2.png');
+                googleMaps.createMarker(place);
             },
             map: googleMaps.map
         });
@@ -61,7 +62,7 @@ $(document).ready(function() {
             map: googleMaps.map,
             resultCallback: function(place) {
                 console.log('Google Places callback called');
-                googleMaps.createMarker(place, place.icon /* 'icon/pyramid.png'*/);
+                googleMaps.createMarker(place);
             }
         });
 
