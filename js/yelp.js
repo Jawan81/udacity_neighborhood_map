@@ -80,25 +80,27 @@ var yelp = {
     },
     processResults: function(results) {
         var self = this;
-        this.lastResults = [];
+        self.lastResults = [];
 
         console.log('processResults');
         console.log(results);
 
+        //var numBusinesses = results.businesses.length;
+        //var numUpdated = 0;
+
         results.businesses.forEach(function(business) {
-            var place = {
+            var place = new Place({
                 name: business.name,
                 address: business.address1 + "," + business.zip + " " +
                     business.city + ", " + business.country,
                 //type: "review",
-                url: business.url,
-                lat: undefined,
-                lng: undefined
-            };
+                url: business.url
+            });
 
-            self.lastResults.push(place);
+            googleMaps.updateLatLng(place, function(updatedPlace) {
+                self.lastResults.push(updatedPlace);
+                self.resultsCallback(updatedPlace);
+            });
         });
-
-        this.resultsCallback(self.lastResults);
     }
 };

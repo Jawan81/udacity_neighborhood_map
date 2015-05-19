@@ -47,9 +47,13 @@ $(document).ready(function() {
     google.maps.event.addListenerOnce(googleMaps.map, 'idle', function(){
         yelp.initialize({
             apiKey: "E64ahrrCO0X_zDyPHQDYrw",
-            callback: function(places) {
+            callback: function(place) {
                 console.log('Yelp callback called');
-                console.log(places);
+                //console.log(places);
+
+                //places.forEach(function(place) {
+                    googleMaps.createMarker(place.location);
+                //});
                 // TODO: Do something with the places
             },
             map: googleMaps.map
@@ -58,6 +62,28 @@ $(document).ready(function() {
         // TODO: Define search terms
         yelp.search('cafes');
     });
+    //var place = new Place({
+    //    name: 'Hamburg',
+    //    address: 'Berlin, Germany',
+    //    updateGeoData: function(place) { googleMaps.updateLatLng(place);}
+    //    //function(myPlace) {
+    //    //    console.log("update geo data");
+    //    //    myPlace.lat = 12.3;
+    //    //    myPlace.lng = 56.7;
+    //    //}
+    //});
+
+    //place.updateGeoData();
+    //
+    //console.log("place");
+    //setTimeout(function() {
+    //    console.log(place.name);
+    //    console.log(place.address);
+    //    console.log(place.lat);
+    //    console.log(place.lng);
+    //    console.log(place);
+    //}, 2000);
+
     google.maps.event.addListener(googleMaps.map, 'center_changed', function() {
 
         yelp.search({

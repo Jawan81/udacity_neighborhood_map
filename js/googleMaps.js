@@ -14,11 +14,32 @@ var googleMaps = {
     },
     search: function(address) {
         var self = this;
+        this.geocode(address, function(results) {
+            self.searchResults(results);
+        });
+    },
+    updateLatLng: function(place, callback) {
+        this.geocode(place.address, function(results) {
+            if (undefined === results[0]) {
+                return;
+            }
+            var location = results[0].geometry.location;
+            console.log(location);
+            place.lat = location.A;
+            place.lng = location.F;
+            place.location = location;
+
+            if (undefined !== callback) {
+                callback(place);
+            }
+        });
+    },
+    geocode: function(address, callback) {
         this.geocoder.geocode( { 'address': address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                self.searchResults(results);
+                callback(results);
             } else {
-                self.searchResults([]);
+                callback([]);
             }
         });
     },
