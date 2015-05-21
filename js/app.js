@@ -69,6 +69,7 @@ $(document).ready(function() {
         // TODO: Define search terms
         yelp.search('cafes');
         googlePlaces.search(['store']);
+        wikipedia.search('Hamburg');
     });
     //var place = new Place({
     //    name: 'Hamburg',
