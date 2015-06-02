@@ -25,17 +25,25 @@ var wikipedia  = {
             type: 'POST',
             headers: { 'Api-User-Agent': 'udacity-course/1.0' }
         }).done(function(data) {
-            //console.log('wikipedia');
-            //console.log(data);
             wikiResponse = data;
             var pages = data.query.pages;
             for(var index in pages) {
                 if(pages.hasOwnProperty(index)) {
                     console.log(pages[index].extract);
+                    var extract = pages[index].extract;
+                    var place = new Place({
+                        name: extract,
+                        address: term,
+                        icon: 'icon/pyramid.png' // TODO: Yelp Icon
+                    });
+
+                    googleMaps.updateLatLng(place, function(updatedPlace) {
+                        googleMaps.createMarker(updatedPlace);
+                    })
                 }
             }
         }).fail(function() {
-            console.log('wikipedia failed');
+            console.log('Wikipedia search for term "' + term + '" failed');
         });
     }
 };
