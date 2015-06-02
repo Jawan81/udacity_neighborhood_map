@@ -20,6 +20,8 @@ var SearchViewModel = function(address){
             location: selected.result.geometry.location,
             icon: 'icon/moderntower.png'
         });
+
+        wikipedia.search(selected.name.slice(0, selected.name.indexOf(',')));
     };
 
     googleMaps.searchResults.subscribe(function() {

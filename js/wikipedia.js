@@ -29,11 +29,13 @@ var wikipedia  = {
             var pages = data.query.pages;
             for(var index in pages) {
                 if(pages.hasOwnProperty(index)) {
-                    console.log(pages[index].extract);
+                    console.log('#### Wikipedia result: ' + term);
+                    console.log(pages);//[index].extract);
                     var extract = pages[index].extract;
                     var place = new Place({
-                        name: extract,
+                        name: '<h2><img class="wikilogo" src="icon/dewiki.png"> Wikipedia</h2>' + extract,
                         address: term,
+                        priority: 100,
                         icon: 'icon/dewiki.png' // TODO: Yelp Icon
                     });
 

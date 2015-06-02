@@ -56,6 +56,10 @@ var googleMaps = {
             size = { width: 71, height: 71 };
         }
 
+        var zIndex = 0;
+        if (undefined !== place.priority) {
+            zIndex =  place.priority;
+        }
         var image = {
             url: place.icon,
             size: new google.maps.Size(size.width, size.height),
@@ -67,7 +71,8 @@ var googleMaps = {
         var marker = new google.maps.Marker({
             map: self.map,
             position: place.location,
-            icon: image
+            icon: image,
+            zIndex: zIndex
         });
 
         google.maps.event.addListener(marker, 'click', function() {
