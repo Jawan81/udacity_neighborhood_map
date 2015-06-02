@@ -49,15 +49,19 @@ var googleMaps = {
         self.map.setCenter(place.location);
         this.createMarker(place);
     },
-    createMarker: function(place) {
+    createMarker: function(place, size) {
         var self = this;
+
+        if (undefined === size) {
+            size = { width: 71, height: 71 };
+        }
 
         var image = {
             url: place.icon,
-            size: new google.maps.Size(71, 71),
+            size: new google.maps.Size(size.width, size.height),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(25, 25)
+            scaledSize: new google.maps.Size(size.width / 3, size.width / 3)
         };
 
         var marker = new google.maps.Marker({

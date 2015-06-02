@@ -34,11 +34,11 @@ var wikipedia  = {
                     var place = new Place({
                         name: extract,
                         address: term,
-                        icon: 'icon/pyramid.png' // TODO: Yelp Icon
+                        icon: 'icon/dewiki.png' // TODO: Yelp Icon
                     });
 
                     googleMaps.updateLatLng(place, function(updatedPlace) {
-                        googleMaps.createMarker(updatedPlace);
+                        googleMaps.createMarker(updatedPlace, { width: 150, height: 150});
                     })
                 }
             }
