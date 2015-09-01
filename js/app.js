@@ -21,7 +21,9 @@ var SearchViewModel = function(address){
             icon: 'icon/moderntower.png'
         });
 
-        wikipedia.search(selected.name.slice(0, selected.name.indexOf(',')));
+        if (self.activateWikipedia()) {
+            wikipedia.search(selected.name.slice(0, selected.name.indexOf(',')));
+        }
     };
 
     googleMaps.searchResults.subscribe(function() {
@@ -35,6 +37,25 @@ var SearchViewModel = function(address){
         self.searchResults(formatted);
     });
 
+    self.activateWikipedia = ko.observable(true);
+    self.activateYelp = ko.observable(true);
+    self.activateGooglePlaces = ko.observable(true);
+
+    self.activateWikipedia.subscribe(function(activate) {
+        googleMaps.checkMarkers('wikipedia', activate);
+    });
+
+    self.activateYelp.subscribe(function(activate) {
+        googleMaps.checkMarkers('yelp', activate);
+    });
+
+    self.activateGooglePlaces.subscribe(function(activate) {
+        googleMaps.checkMarkers('googlePlaces', activate);
+    });
+
+    self.clearAll = function() {
+        googleMaps.clearMarkers();
+    };
     //self.selectedAddress.subscribe(function(selected) {
     // TODO
     //});
@@ -49,7 +70,8 @@ var initialAddress = {
 $(document).ready(function() {
     var mapCanvas = document.getElementById("map-canvas");
     googleMaps.initialize(mapCanvas, initialAddress);
-    ko.applyBindings(new SearchViewModel(initialAddress));
+    var viewModel = new SearchViewModel(initialAddress);
+    ko.applyBindings(viewModel);
     google.maps.event.addListenerOnce(googleMaps.map, 'idle', function(){
         yelp.initialize({
             apiKey: "E64ahrrCO0X_zDyPHQDYrw",
@@ -97,11 +119,15 @@ $(document).ready(function() {
 
     google.maps.event.addListener(googleMaps.map, 'center_changed', function() {
 
-        yelp.search({
-            search: 'cafes'
-        });
+        if (viewModel.activateYelp()){
+            yelp.search({
+                search: 'cafes'
+            });
+        }
 
-        googlePlaces.search(['store']);
+        if (viewModel.activateGooglePlaces()){
+            googlePlaces.search(['store']);
+        }
         // 3 seconds after the center of the map has changed, pan back to the
         // marker.
         //window.setTimeout(function() {

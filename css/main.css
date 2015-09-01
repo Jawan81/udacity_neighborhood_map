@@ -5,44 +5,72 @@ html, body, #map-canvas, .content {
     padding: 0;
 }
 
+
 body {
-    font-family: Verdana, Arial, sans-serif;
+    font-family: 'Rock Salt', Verdana, Arial, sans-serif;
 }
+
+
 h3 {
     font-size: 12px;
 }
 
-/*.content {*/
-    /*position: relative;*/
-/*}*/
 
-/*#map-canvas {*/
-    /*height: 100%;*/
-    /*margin-left: 300px;*/
-/*}*/
+.brand {
+    /*font-family: 'Rock Salt', Verdana, sans-serif;*/
+}
+
+
+.title {
+    margin: 0 0 10px;
+}
+
 
 #panel {
+    color: #FFF;
     position: absolute;
     left: 20px;
     top: 20px;
     width: 300px;
-    min-height: 400px;
-    background-color: white;
+    min-height: 500px;
+    /*background-color: white;*/
     opacity: 0.9;
     box-shadow: 5px 5px 5px #393939;
     /*float: left;*/
     z-index: 5;
     padding: 10px;
     /*height: 100%;*/
+
+    background: -moz-linear-gradient(top, rgba(176,212,227,1) 0%, rgba(136,186,207,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(176,212,227,1)), color-stop(100%,rgba(136,186,207,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(176,212,227,1) 0%,rgba(136,186,207,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(176,212,227,1) 0%,rgba(136,186,207,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(176,212,227,1) 0%,rgba(136,186,207,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(176,212,227,1) 0%,rgba(136,186,207,1) 100%); /* W3C */
 }
+
+
+#location-search {
+    width: 97%;
+    height: 30px;
+    font-size: 1em;
+    color: #000;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+
 .suggestions {
     border-radius: 2px;
-    border-top: 1px solid #393939;
+    /*border-top: 1px solid #393939;*/
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    /*display: block;*/
-    font-size: 15px;
+    font-size: 10px;
     z-index: 6;
+    margin: 2px 0 0;
+    color: #000000;
 }
+
 
 .suggestions ul {
     vertical-align: baseline;
@@ -50,6 +78,7 @@ h3 {
     padding: 0;
     /*padding: 0 0 0 40px;*/
 }
+
 
 .suggestions ul li {
     opacity: 1;
@@ -59,14 +88,17 @@ h3 {
     background-color: white;
 }
 
+
 .suggestions li img {
     vertical-align: middle;
 }
+
 
 .suggestions ul li:hover{
     background-color: beige;
     cursor: pointer;
 }
+
 
 .footer {
     position: absolute;
@@ -74,15 +106,19 @@ h3 {
     font-size: 10px;
 }
 
+
 .footer li {
     list-style: none;
 }
 
+
 .filters {
     position: absolute;
-    top: 80px;
+    top: 130px;
     z-index: -1;
+    font-size: 10px;
 }
+
 
 .wikilogo {
     height: 67px;

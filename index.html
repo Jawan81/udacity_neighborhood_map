@@ -4,13 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <link href="css/main.css" rel="stylesheet">
-
+    <link href='https://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <div id="panel">
+        <div class="brand">
+            <h1 class="title">Jawan's Places</h1>
+        </div>
         <form>
-            <label for="location-search">Suche</label>
-            <input type="text" id="location-search"
+            <!--<label for="location-search">Search</label>-->
+            <input type="text" id="location-search" placeholder="Search"
                    data-bind='value: searchValue, valueUpdate: "afterkeydown", event: { keyup: search }'/>
 
             <div class="suggestions">
@@ -25,6 +28,27 @@
 
         <div class="filters">
             <h3>Filters</h3>
+            <form>
+                <fieldset>
+                    <legend>Services</legend>
+                    <div>
+                        <input id="wikipedia-filter" type="checkbox" class="filter" data-bind="checked: activateWikipedia">
+                        <label for="wikipedia-filter">Wikipedia</label>
+                    </div>
+                    <div>
+                        <input id="yelp-filter" type="checkbox" class="filter" data-bind="checked: activateYelp">
+                        <label for="yelp-filter">Yelp</label>
+                    </div>
+                    <div>
+                        <input id="google-places-filter" type="checkbox" class="filter" data-bind="checked: activateGooglePlaces">
+                        <label for="google-places-filter">Google Places</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Places</legend>
+                </fieldset>
+                <input type="button" data-bind="click: clearAll" value="Clear">
+            </form>
 
         </div>
         <div class="footer">

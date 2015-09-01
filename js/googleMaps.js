@@ -11,6 +11,7 @@ var googleMaps = {
         this.geocoder = new google.maps.Geocoder();
         this.map = new google.maps.Map(mapCanvas, mapOptions);
         this.infowindow =  new google.maps.InfoWindow();
+        this.markers = {};
         this.createMarker({location:latLng, name: address.name, icon: 'icon/moderntower.png'});
     },
     search: function(address) {
@@ -60,6 +61,7 @@ var googleMaps = {
         if (undefined !== place.priority) {
             zIndex =  place.priority;
         }
+
         var image = {
             url: place.icon,
             size: new google.maps.Size(size.width, size.height),
@@ -75,9 +77,48 @@ var googleMaps = {
             zIndex: zIndex
         });
 
+        if (undefined === self.markers[place.api]) {
+            self.markers[place.api] = [];
+        }
+
+        self.markers[place.api].push(marker);
+
         google.maps.event.addListener(marker, 'click', function() {
             self.infowindow.setContent(place.name);
             self.infowindow.open(self.map, this);
         });
+    },
+    hideMarkers: function(api) {
+        this.setMarkersMap(api, null);
+    },
+    showMarkers: function(api) {
+        this.setMarkersMap(api, this.map);
+    },
+    checkMarkers: function(api, activate) {
+        if (activate) {
+            googleMaps.showMarkers(api);
+        } else {
+            googleMaps.hideMarkers(api);
+        }
+    },
+    clearMarkers: function() {
+        var self = this;
+
+        Object.keys(this.markers).forEach(function(api) {
+            self.setMarkersMap(api, null);
+        });
+
+        this.markers = {};
+    },
+    setMarkersMap: function(api, map) {
+        if (undefined === this.markers[api]) {
+            return;
+        }
+
+        for (var i = 0; i < this.markers[api].length; i++) {
+            this.markers[api][i].setMap(map);
+        }
     }
+
+
 };

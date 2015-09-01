@@ -26,7 +26,8 @@ var googlePlaces = {
                         name: result.name,
                         types: result.types, // TODO: wrapper für types
                         address: result.vicinity,
-                        icon: result.icon
+                        icon: result.icon,
+                        api: 'googlePlaces'
                     });
 
                     self.resultCallback(place);

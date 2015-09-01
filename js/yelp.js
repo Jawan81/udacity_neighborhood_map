@@ -103,7 +103,8 @@ var yelp = {
                     business.city + ", " + business.country,
                 //type: "review",
                 url: business.url,
-                icon: 'icon/pagoda-2.png' // TODO: Yelp Icon
+                icon: 'icon/pagoda-2.png', // TODO: Yelp Icon
+                api: 'yelp'
             });
 
             googleMaps.updateLatLng(place, function(updatedPlace) {

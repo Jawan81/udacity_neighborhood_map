@@ -1,9 +1,6 @@
 "use strict";
 
 function Place(data) {
-    //this.name = data.name;
-    //this.lat = data.lat;
-    //this.lng = data.lng;
     var self = this;
 
     Object.defineProperties(this, {
@@ -63,6 +60,11 @@ function Place(data) {
                 if (undefined !== data.updateGeoData && typeof data.updateGeoData === "function") {
                     data.updateGeoData(self);
                 }
+            }
+        },
+        "api": {
+            get: function() {
+                return data.api;
             }
         }
     });

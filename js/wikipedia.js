@@ -36,7 +36,8 @@ var wikipedia  = {
                         name: '<h2><img class="wikilogo" src="icon/dewiki.png"> Wikipedia</h2>' + extract,
                         address: term,
                         priority: 100,
-                        icon: 'icon/dewiki.png' // TODO: Yelp Icon
+                        icon: 'icon/dewiki.png', // TODO: Yelp Icon
+                        api: 'wikipedia'
                     });
 
                     googleMaps.updateLatLng(place, function(updatedPlace) {
