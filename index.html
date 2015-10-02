@@ -46,6 +46,18 @@
                 </fieldset>
                 <fieldset>
                     <legend>Places</legend>
+                    <div>
+                        <input id="restaurants-filter" type="checkbox" class="filter" data-bind="checked: activateRestaurants">
+                        <label for="restaurants-filter">Restaurants</label>
+                    </div>
+                    <div>
+                        <input id="shops-filter" type="checkbox" class="filter" data-bind="checked: activateShops">
+                        <label for="shops-filter">Shopping</label>
+                    </div>
+                    <div>
+                        <input id="sights-filter" type="checkbox" class="filter" data-bind="checked: activateSights">
+                        <label for="sights-filter">Sights</label>
+                    </div>
                 </fieldset>
                 <input type="button" data-bind="click: clearAll" value="Clear">
             </form>

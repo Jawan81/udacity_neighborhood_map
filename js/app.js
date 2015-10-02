@@ -41,6 +41,10 @@ var SearchViewModel = function(address){
     self.activateYelp = ko.observable(true);
     self.activateGooglePlaces = ko.observable(true);
 
+    self.activateRestaurants = ko.observable(true);
+    self.activateShops = ko.observable(true);
+    self.activateSights = ko.observable(true);
+
     self.activateWikipedia.subscribe(function(activate) {
         googleMaps.checkMarkers('wikipedia', activate);
     });
