@@ -5,12 +5,13 @@ var googleMaps = {
         var latLng = new google.maps.LatLng(address.lat, address.lng);
         var mapOptions = {
             center: latLng,
-            zoom: 8,
+            zoom: 13,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         this.geocoder = new google.maps.Geocoder();
         this.map = new google.maps.Map(mapCanvas, mapOptions);
         this.infowindow =  new google.maps.InfoWindow();
+        this.currentMarker = null;
        // this.createMarkerForPlace({location:latLng, name: address.name, icon: 'icon/moderntower.png'});
     },
     search: function(address) {
@@ -49,6 +50,18 @@ var googleMaps = {
         self.map.setCenter(place.location);
         //this.createMarkerForPlace(place);
     },
+    markerBounce: function(marker) {
+        if (null !== this.currentMarker
+            && this.currentMarker !== marker
+            && this.currentMarker.getAnimation() !== null) {
+            this.currentMarker.setAnimation(null);
+        }
+
+        if (this.currentMarker !== marker) {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+        this.currentMarker = marker;
+    },
     createMarkerForPlace: function(place, size) {
         var self = this;
 
@@ -76,12 +89,13 @@ var googleMaps = {
             zIndex: zIndex
         });
 
-        place.marker = marker;
-
-        google.maps.event.addListener(marker, 'click', function() {
+        marker.addListener('click', function() {
+            self.markerBounce(marker);
             self.infowindow.setContent(place.name);
             self.infowindow.open(self.map, this);
         });
+
+        place.marker = marker;
     },
     showOrHidePlace: function(place) {
         if(place.active) {

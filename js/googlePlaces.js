@@ -25,7 +25,7 @@ var googlePlaces = {
 
         var request = {
             location: location,
-            radius: 500,
+            radius: 1000,
             types: gpTypes
         };
 
