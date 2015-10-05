@@ -121,9 +121,7 @@ $(document).ready(function() {
     google.maps.event.addListenerOnce(googleMaps.map, 'idle', function(){
         yelp.initialize({
             apiKey: "E64ahrrCO0X_zDyPHQDYrw",
-            callback: function(place) {
-                console.log('Yelp callback called');
-                //googleMaps.createMarkerForPlace(place);
+            callback:  function(place) {
                 placesManager.addPlace(place);
             },
             map: googleMaps.map
@@ -132,9 +130,6 @@ $(document).ready(function() {
         googlePlaces.initialize({
             map: googleMaps.map,
             resultCallback: function(place) {
-                console.log('Google Places callback called');
-                //googleMaps.createMarkerForPlace(place);
-
                 placesManager.addPlace(place);
             }
         });
@@ -156,11 +151,6 @@ $(document).ready(function() {
         if (viewModel.activateGooglePlaces()){
             googlePlaces.search(viewModel.activatedTypes());
         }
-        // 3 seconds after the center of the map has changed, pan back to the
-        // marker.
-        //window.setTimeout(function() {
-        //    map.panTo(marker.getPosition());
-        //}, 3000);
     });
 });
 

@@ -4,6 +4,11 @@ function Place(data) {
     var self = this;
 
     Object.defineProperties(this, {
+        "id": {
+            get: function() {
+                return data.id;
+            }
+        },
         "name": {
             get: function() {
                 return data.name;

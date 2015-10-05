@@ -38,7 +38,8 @@ var wikipedia  = {
                         priority: 100,
                         icon: 'icon/dewiki.png',
                         api: 'wikipedia',
-                        type: 'city'
+                        type: 'city',
+                        id: 'wiki_' + pages[index].pageid
                     });
 
                     googleMaps.updateLatLng(place, function(updatedPlace) {

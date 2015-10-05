@@ -7,6 +7,14 @@ var placesManager = {
         this.googleMaps = googleMaps;
     },
     addPlace: function(place) {
+        var found = this.places.filter(function(p) {
+            return p.id === place.id;
+        });
+
+        if (found.length > 0) {
+            return;
+        }
+
         place.active = true;
         this.places.push(place);
         this.googleMaps.createMarkerForPlace(place);

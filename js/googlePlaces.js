@@ -31,8 +31,8 @@ var googlePlaces = {
 
         self.service.nearbySearch(request, function(results, status) {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
-                //console.log('#### Google Places');
-                //console.log(results);
+                // console.log('#### Google Places');
+                // console.log(results);
                 for (var i = 0; i < results.length; i++) {
                     var result = results[i];
                     var place = new Place({
@@ -41,7 +41,8 @@ var googlePlaces = {
                         type: self.determineType(result.types),
                         address: result.vicinity,
                         icon: result.icon,
-                        api: 'googlePlaces'
+                        api: 'googlePlaces',
+                        id: 'gp_' + result.id
                     });
 
                     self.resultCallback(place);
