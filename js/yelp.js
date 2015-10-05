@@ -38,7 +38,7 @@ var yelp = {
     setUpRequestUrl: function(searchTerm) {
         var yelpUrl = "http://api.yelp.com/" +
             "business_review_search?" +
-            "&term=" + searchTerm +
+            "&term=" + encodeURIComponent(searchTerm) +
             "&num_biz_requested=" + this.numResults +
             "&tl_lat=" + this.mapBounds.tlLat +
             "&tl_long=" + this.mapBounds.tlLng +
@@ -86,8 +86,9 @@ var yelp = {
             dataType: "jsonp"
         }).done(function(data) {
             self.processResults(data);
-        }).fail(function() {
+        }).fail(function(data) {
             console.log("Yelp request failed.");
+            console.log(data);
         });
     },
     processResults: function(results) {

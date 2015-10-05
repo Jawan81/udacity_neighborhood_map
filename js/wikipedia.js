@@ -36,12 +36,13 @@ var wikipedia  = {
                         name: '<h2><img class="wikilogo" src="icon/dewiki.png"> Wikipedia</h2>' + extract,
                         address: term,
                         priority: 100,
-                        icon: 'icon/dewiki.png', // TODO: Yelp Icon
-                        api: 'wikipedia'
+                        icon: 'icon/dewiki.png',
+                        api: 'wikipedia',
+                        type: 'city'
                     });
 
                     googleMaps.updateLatLng(place, function(updatedPlace) {
-                        googleMaps.createMarker(updatedPlace, { width: 150, height: 150});
+                        googleMaps.createMarkerForPlace(updatedPlace, { width: 150, height: 150});
                     })
                 }
             }

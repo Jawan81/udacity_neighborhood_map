@@ -11,8 +11,7 @@ var googleMaps = {
         this.geocoder = new google.maps.Geocoder();
         this.map = new google.maps.Map(mapCanvas, mapOptions);
         this.infowindow =  new google.maps.InfoWindow();
-        this.markers = {};
-        this.createMarker({location:latLng, name: address.name, icon: 'icon/moderntower.png'});
+       // this.createMarkerForPlace({location:latLng, name: address.name, icon: 'icon/moderntower.png'});
     },
     search: function(address) {
         var self = this;
@@ -48,9 +47,9 @@ var googleMaps = {
     setCenter: function(place) {
         var self = this;
         self.map.setCenter(place.location);
-        this.createMarker(place);
+        //this.createMarkerForPlace(place);
     },
-    createMarker: function(place, size) {
+    createMarkerForPlace: function(place, size) {
         var self = this;
 
         if (undefined === size) {
@@ -77,48 +76,18 @@ var googleMaps = {
             zIndex: zIndex
         });
 
-        if (undefined === self.markers[place.api]) {
-            self.markers[place.api] = [];
-        }
-
-        self.markers[place.api].push(marker);
+        place.marker = marker;
 
         google.maps.event.addListener(marker, 'click', function() {
             self.infowindow.setContent(place.name);
             self.infowindow.open(self.map, this);
         });
     },
-    hideMarkers: function(api) {
-        this.setMarkersMap(api, null);
-    },
-    showMarkers: function(api) {
-        this.setMarkersMap(api, this.map);
-    },
-    checkMarkers: function(api, activate) {
-        if (activate) {
-            googleMaps.showMarkers(api);
+    showOrHidePlace: function(place) {
+        if(place.active) {
+            place.marker.setMap(this.map);
         } else {
-            googleMaps.hideMarkers(api);
-        }
-    },
-    clearMarkers: function() {
-        var self = this;
-
-        Object.keys(this.markers).forEach(function(api) {
-            self.setMarkersMap(api, null);
-        });
-
-        this.markers = {};
-    },
-    setMarkersMap: function(api, map) {
-        if (undefined === this.markers[api]) {
-            return;
-        }
-
-        for (var i = 0; i < this.markers[api].length; i++) {
-            this.markers[api][i].setMap(map);
+            place.marker.setMap(null);
         }
     }
-
-
 };

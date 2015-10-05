@@ -25,6 +25,14 @@ function Place(data) {
                 data.lng = lng;
             }
         },
+        "active": {
+            get: function() {
+                return data.active;
+            },
+            set: function(active) {
+                data.active = active;
+            }
+        },
         "location": {
             get: function() {
                 return data.location;
@@ -49,6 +57,34 @@ function Place(data) {
             },
             set: function(url) {
                 data.url = url;
+            }
+        },
+        "marker": {
+            get: function() {
+                return data.marker;
+            },
+            set: function(marker) {
+                data.marker = marker;
+            }
+        },
+        "possibleTypes": {
+            get: function() {
+                return [
+                    "food",
+                    "shopping",
+                    "sight",
+                    "city"
+                ]
+            }
+        },
+        "type": {
+            get: function() {
+                return data.type;
+            },
+            set: function(type) {
+                if (0 <= self.possibleTypes.indexOf(type)) {
+                    data.type = type;
+                }
             }
         },
         "updateGeoData": {
