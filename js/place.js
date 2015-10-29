@@ -40,7 +40,14 @@ function Place(data) {
         },
         "location": {
             get: function() {
-                return data.location;
+                if (undefined != data.location) {
+                    return data.location;
+                }
+
+                return {
+                    lng: data.lng,
+                    lat: data.lat
+                }
             },
             set: function(location) {
                 data.location = location;
