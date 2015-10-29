@@ -45,6 +45,14 @@ var googleMaps = {
             }
         });
     },
+    getCenter: function() {
+        var gmCenter = this.map.getCenter();
+
+        return {
+            lat: gmCenter.lat(),
+            lng: gmCenter.lng()
+        };
+    },
     setCenter: function(place) {
         var self = this;
         self.map.setCenter(place.location);

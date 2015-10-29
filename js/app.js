@@ -38,9 +38,9 @@ var SearchViewModel = function(address){
     });
 
     self.activateWikipedia = ko.observable(true);
-    self.activateYelp = ko.observable(true);
+    self.activateFoursquare = ko.observable(true);
     self.activateGooglePlaces = ko.observable(true);
-    self.activatedApis = ko.observableArray(['wikipedia', 'yelp', 'googlePlaces']);
+    self.activatedApis = ko.observableArray(['wikipedia', 'foursquare', 'googlePlaces']);
 
     self.activateApi = function(api, activate) {
         var index = self.activatedApis.indexOf(api);
@@ -55,8 +55,8 @@ var SearchViewModel = function(address){
         self.activateApi('wikipedia', activate);
     });
 
-    self.activateYelp.subscribe(function(activate) {
-        self.activateApi('yelp', activate);
+    self.activateFoursquare.subscribe(function(activate) {
+        self.activateApi('foursquare', activate);
     });
 
     self.activateGooglePlaces.subscribe(function(activate) {
@@ -118,33 +118,37 @@ $(document).ready(function() {
     ko.applyBindings(viewModel);
     placesManager.initialize(viewModel.activatedTypes(), viewModel.activatedApis(), googleMaps);
 
+    var addPlace = function(place) {
+        placesManager.addPlace(place);
+    };
+
     google.maps.event.addListenerOnce(googleMaps.map, 'idle', function(){
-        yelp.initialize({
-            apiKey: "E64ahrrCO0X_zDyPHQDYrw",
-            callback:  function(place) {
-                placesManager.addPlace(place);
-            },
-            map: googleMaps.map
+        //yelp.initialize({
+        //    apiKey: "E64ahrrCO0X_zDyPHQDYrw",
+        //    callback:  addPlace,
+        //    map: googleMaps.map
+        //});
+        foursquare.initialize({
+            clientId: '2QOBCHZDJ3QLSXXB0WSGNRP0XUZABIFT1YPTEYPZ1YNYOU0M',
+            clientSecret: 'ELAFO2AIFTJUKDAA3HO524T02KMLUDQK5DDEBCVHZ25SJQVO',
+            resultCallback: addPlace
         });
 
         googlePlaces.initialize({
             map: googleMaps.map,
-            resultCallback: function(place) {
-                placesManager.addPlace(place);
-            }
+            resultCallback: addPlace
         });
 
-        // TODO: Define search terms
-        //yelp.search('cafes');
+        foursquare.search(viewModel.activatedTypes(), googleMaps.getCenter());
         googlePlaces.search(viewModel.activatedTypes());
         wikipedia.search('Hamburg');
     });
 
     var update = function() {
-        if (viewModel.activateYelp()){
-            yelp.search({
-                search: 'cafes'
-            });
+        var center = googleMaps.getCenter();
+
+        if (viewModel.activateFoursquare()){
+            foursquare.search(viewModel.activatedTypes(), center);
         }
 
         //foursquare.search();
