@@ -44,14 +44,10 @@ var SearchViewModel = function(address){
 
     self.activateApi = function(api, activate) {
         var index = self.activatedApis.indexOf(api);
-        if (activate) {
-            if (index < 0) {
-                self.activatedApis.push(api);
-            }
-        } else {
-            if (index >= 0) {
-                self.activatedApis.remove(api);
-            }
+        if (activate && index < 0) {
+            self.activatedApis.push(api);
+        } else if (!activate && index >= 0) {
+            self.activatedApis.remove(api);
         }
     };
 
@@ -112,12 +108,16 @@ var initialAddress = {
     lng: 9.9936818
 };
 
+/**
+ * Initialization
+ */
 $(document).ready(function() {
     var mapCanvas = document.getElementById("map-canvas");
     googleMaps.initialize(mapCanvas, initialAddress);
     var viewModel = new SearchViewModel(initialAddress);
     ko.applyBindings(viewModel);
     placesManager.initialize(viewModel.activatedTypes(), viewModel.activatedApis(), googleMaps);
+
     google.maps.event.addListenerOnce(googleMaps.map, 'idle', function(){
         yelp.initialize({
             apiKey: "E64ahrrCO0X_zDyPHQDYrw",
@@ -135,22 +135,36 @@ $(document).ready(function() {
         });
 
         // TODO: Define search terms
-        yelp.search('cafes');
+        //yelp.search('cafes');
         googlePlaces.search(viewModel.activatedTypes());
         wikipedia.search('Hamburg');
     });
 
-    google.maps.event.addListener(googleMaps.map, 'center_changed', function() {
-
+    var update = function() {
         if (viewModel.activateYelp()){
             yelp.search({
                 search: 'cafes'
             });
         }
 
+        //foursquare.search();
+
         if (viewModel.activateGooglePlaces()){
             googlePlaces.search(viewModel.activatedTypes());
         }
+    };
+
+    var timeout = 0;
+
+    google.maps.event.addListener(googleMaps.map, 'center_changed', function() {
+        timeout++;
+
+        setTimeout(function() {
+            timeout = timeout > 0 ? timeout - 1 : 0;
+            if (timeout == 0) {
+                update();
+            }
+        }, 500);
     });
 });
 
