@@ -19,12 +19,12 @@ var SearchViewModel = function(address){
         self.searchResults([]);
         googleMaps.setCenter({
             name: selected.name,
-            location: selected.result.geometry.location,
-            icon: 'icon/moderntower.png'
+            location: selected.result.geometry.location
         });
 
         if (self.activateWikipedia()) {
-            wikipedia.search(selected.name.slice(0, selected.name.indexOf(',')));
+            //var sliced = selected.name.slice(0, selected.name.indexOf(','));
+            wikipedia.search(selected.name);
         }
     };
 
@@ -132,7 +132,7 @@ $(document).ready(function() {
         });
 
         googlePlaces.initialize({
-            map: googleMaps.map,
+            placesService: new google.maps.places.PlacesService(googleMaps.map),
             resultCallback: addPlace
         });
 
@@ -140,22 +140,20 @@ $(document).ready(function() {
             resultCallback: addPlace
         });
 
-        foursquare.search(viewModel.activatedTypes(), googleMaps.getCenter());
-        googlePlaces.search(viewModel.activatedTypes());
-        wikipedia.search('Hamburg');
+        update();
+        wikipedia.search(initialAddress.name);
     });
 
     var update = function() {
         var center = googleMaps.getCenter();
+        var activatedTypes = viewModel.activatedTypes();
 
         if (viewModel.activateFoursquare()){
-            foursquare.search(viewModel.activatedTypes(), center);
+            foursquare.search(activatedTypes, center);
         }
 
-        //foursquare.search();
-
         if (viewModel.activateGooglePlaces()){
-            googlePlaces.search(viewModel.activatedTypes());
+            googlePlaces.search(activatedTypes, center);
         }
     };
 

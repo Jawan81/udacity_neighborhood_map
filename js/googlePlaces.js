@@ -7,13 +7,12 @@ var googlePlaces = {
         sight: ['art_gallery', 'stadium', 'museum', 'amusement_park', 'zoo', 'church']
     },
     initialize: function(data) {
-        this.map = data.map;
         this.resultCallback = data.resultCallback;
-        this.service = new google.maps.places.PlacesService(this.map);
+        this.service = data.placesService;
     },
-    search: function(types) {
+    search: function(types, latlng) {
         var self = this;
-        var location = self.map.getCenter();
+
         var gpTypes = [];
         types.forEach(function(type) {
             gpTypes = gpTypes.concat(self.typesMap[type]);
@@ -24,29 +23,29 @@ var googlePlaces = {
         }
 
         var request = {
-            location: location,
+            location: latlng,
             radius: 1000,
             types: gpTypes
         };
 
         self.service.nearbySearch(request, function(results, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
-                // console.log('#### Google Places');
-                // console.log(results);
-                for (var i = 0; i < results.length; i++) {
-                    var result = results[i];
-                    var place = new Place({
-                        location: result.geometry.location,
-                        name: self.determinePlaceInfo(result), // result.name,
-                        type: self.determineType(result.types),
-                        address: result.vicinity,
-                        icon: result.icon,
-                        api: 'googlePlaces',
-                        id: 'gp_' + result.id
-                    });
+            if (status != google.maps.places.PlacesServiceStatus.OK) {
+                return;
+            }
 
-                    self.resultCallback(place);
-                }
+            for (var i = 0; i < results.length; i++) {
+                var result = results[i];
+                var place = new Place({
+                    location: result.geometry.location,
+                    name: self.determinePlaceInfo(result),
+                    type: self.determineType(result.types),
+                    address: result.vicinity,
+                    icon: result.icon,
+                    api: 'googlePlaces',
+                    id: 'gp_' + result.id
+                });
+
+                self.resultCallback(place);
             }
         });
     },

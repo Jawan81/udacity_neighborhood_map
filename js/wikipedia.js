@@ -7,6 +7,10 @@ var wikipedia  = {
     },
     search: function(term) {
         var self = this;
+        // use term up to first comma occurrence. Otherwise Wikipedia is irritated most of the time
+        if (term.indexOf(',') > 0) {
+            term = term.slice(0, term.indexOf(','));
+        }
 
         $.ajax( {
             url: self.endpoint,
@@ -15,7 +19,7 @@ var wikipedia  = {
                 prop: 'extracts',
                 format: 'json',
                 exintro: '',
-                titles: encodeURIComponent(term)
+                titles: term
             },
             dataType: 'jsonp',
             jsonp: 'callback',
@@ -29,21 +33,27 @@ var wikipedia  = {
 
             var pages = data.query.pages;
             for(var index in pages) {
-                if(pages.hasOwnProperty(index)) {
-                    var extract = pages[index].extract;
-                    var place = new Place({
-                        name: '<h2><img class="wikilogo" src="icon/wikipedia.png">Wikipedia</h2>' + extract,
-                        address: term,
-                        priority: 5,
-                        api: 'wikipedia',
-                        type: 'wikipedia',
-                        icon: 'icon/wikipedia.png',
-                        iconSize: { width: 150, height: 150},
-                        id: 'wiki_' + pages[index].pageid
-                    });
-
-                    self.resultCallback(place);
+                if(!pages.hasOwnProperty(index)) {
+                    continue;
                 }
+
+                var extract = pages[index].extract;
+                if (!extract) {
+                    continue;
+                }
+
+                var place = new Place({
+                    name: '<h2><img class="wikilogo" src="icon/wikipedia.png">Wikipedia</h2>' + extract,
+                    address: term,
+                    priority: 5,
+                    api: 'wikipedia',
+                    type: 'wikipedia',
+                    icon: 'icon/wikipedia.png',
+                    iconSize: {width: 150, height: 150},
+                    id: 'wiki_' + pages[index].pageid
+                });
+
+                self.resultCallback(place);
             }
         }).fail(function() {
             console.log('Wikipedia search for term "' + term + '" failed');

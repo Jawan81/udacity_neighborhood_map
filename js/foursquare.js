@@ -26,7 +26,7 @@ var foursquare = {
     },
     request: function(section, latlng) {
         var self = this;
-        var ll = latlng.lat + ',' + latlng.lng;
+        var ll = latlng.lat() + ',' + latlng.lng();
 
         $.ajax({
             type: "GET",
