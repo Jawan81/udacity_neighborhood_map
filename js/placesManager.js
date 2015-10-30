@@ -15,6 +15,7 @@ var placesManager = {
             return;
         }
 
+        this.updateIcon(place);
         place.active = true;
         this.places.push(place);
         this.googleMaps.createMarkerForPlace(place);
@@ -26,6 +27,12 @@ var placesManager = {
     updateActiveTypes: function(types) {
         this.activeTypes = types;
         this.update();
+    },
+    updateIcon: function(place) {
+        if (typeof(place.icon) !== 'undefined') {
+            return;
+        }
+        place.icon = 'icon/' + place.type + '.png';
     },
     clearAll: function() {
         this.places.forEach(function(place) {

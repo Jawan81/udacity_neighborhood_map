@@ -40,7 +40,7 @@ function Place(data) {
         },
         "location": {
             get: function() {
-                if (undefined != data.location) {
+                if ('undefined' !== typeof(data.location)) {
                     return data.location;
                 }
 
@@ -61,6 +61,9 @@ function Place(data) {
         "icon": {
             get: function() {
                 return data.icon;
+            },
+            set: function(icon) {
+                data.icon = icon;
             }
         },
         "url": {
@@ -85,7 +88,7 @@ function Place(data) {
                     "food",
                     "shopping",
                     "sight",
-                    "city"
+                    "wikipedia"
                 ]
             }
         },
@@ -97,6 +100,15 @@ function Place(data) {
                 if (0 <= self.possibleTypes.indexOf(type)) {
                     data.type = type;
                 }
+            }
+        },
+        "priority": {
+            get: function() {
+                if('undefined' !== typeof(data.priority)) {
+                    return data.priority;
+                }
+
+                return 1;
             }
         },
         "updateGeoData": {

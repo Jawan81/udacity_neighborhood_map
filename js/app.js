@@ -74,7 +74,7 @@ var SearchViewModel = function(address){
     self.activateEating = ko.observable(true);
     self.activateShopping = ko.observable(true);
     self.activateSights = ko.observable(true);
-    self.activatedTypes = ko.observableArray(['city', 'food', 'shopping', 'sight']);
+    self.activatedTypes = ko.observableArray((new Place()).possibleTypes);
 
     self.activateType = function(type, activate) {
         var index = self.activatedTypes.indexOf(type);

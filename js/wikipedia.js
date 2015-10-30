@@ -26,6 +26,10 @@ var wikipedia  = {
             headers: { 'Api-User-Agent': 'udacity-course/1.0' }
         }).done(function(data) {
             wikiResponse = data;
+            if ('undefined' === typeof(data.query.pages)) {
+                return;
+            }
+
             var pages = data.query.pages;
             for(var index in pages) {
                 if(pages.hasOwnProperty(index)) {
@@ -33,12 +37,12 @@ var wikipedia  = {
                     console.log(pages);//[index].extract);
                     var extract = pages[index].extract;
                     var place = new Place({
-                        name: '<h2><img class="wikilogo" src="icon/dewiki.png"> Wikipedia</h2>' + extract,
+                        name: '<h2><img class="wikilogo" src="icon/wikipedia.png">Wikipedia</h2>' + extract,
                         address: term,
-                        priority: 100,
-                        icon: 'icon/dewiki.png',
+                        priority: 5,
                         api: 'wikipedia',
-                        type: 'city',
+                        type: 'wikipedia',
+                        icon: 'icon/wikipedia.png',
                         id: 'wiki_' + pages[index].pageid
                     });
 

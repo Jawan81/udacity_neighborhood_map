@@ -1,6 +1,4 @@
 "use strict";
-// clientId: 2QOBCHZDJ3QLSXXB0WSGNRP0XUZABIFT1YPTEYPZ1YNYOU0M
-// clientSecret: ELAFO2AIFTJUKDAA3HO524T02KMLUDQK5DDEBCVHZ25SJQVO
 
 var foursquare = {
     endpoint: 'https://api.foursquare.com/v2/venues/explore',
@@ -33,6 +31,8 @@ var foursquare = {
         $.ajax({
             type: "GET",
             url: self.endpoint,
+            crossDomain: true,
+            dataType: 'jsonp',
             data: {
                 client_id: self.clientId,
                 client_secret: self.clientSecret,
@@ -41,9 +41,13 @@ var foursquare = {
                 section: section
             }
         }).done(function(data) {
-            console.log('########## FOURSQUARE:');
-            console.log(data);
-            var result = data.response;
+            //console.log('########## FOURSQUARE:');
+            //console.log(data);
+            if (data.response.groups.length === 0) {
+                return;
+            }
+
+            var type = self.determineType(data.response.query);
 
             data.response.groups[0].items.forEach(function(item) {
                 var place = new Place({
@@ -51,34 +55,36 @@ var foursquare = {
                     lng: item.venue.location.lng,
                     api: 'foursquare',
                     name: self.determinePlaceInfo(item),
-                    id: 'fs_' + item.venue.id,
-                    icon: 'icon/pagoda-2.png'
+                    type: type,
+                    id: 'fs_' + item.venue.id
                 });
 
-                console.log('FOURESQUARE Place');
-                console.log(place);
                 self.resultCallback(place);
             });
         }).fail(function(data) {
-            console.log("##### FOURSQUARE FAILED!");
+            console.log("##### FOURSQUARE REQUEST FAILED!");
             console.log(data);
         });
     },
-    determineType: function(gpTypes) {
+    determineType: function(fsType) {
         var keys = Object.keys(this.typesMap);
-        for (var j in gpTypes) {
-            var gpType = gpTypes[j];
-            for (var i in keys) {
-                if (0 <= this.typesMap[keys[i]].indexOf(gpType)) {
-                    return keys[i];
-                }
+        for (var i in keys) {
+            if (0 <= this.typesMap[keys[i]].indexOf(fsType)) {
+                return keys[i];
             }
         }
 
-        return 'unknown';
+        // when 'sights' were requested the 'query' field is empty - why?!
+        return 'sight';
     },
     determinePlaceInfo: function(apiResult) {
-        // TODO: URL, Photo etc.
-        return apiResult.venue.name;
+        var venue = apiResult.venue;
+        var name = venue.name;
+
+        if (typeof(venue.url) != 'undefined') {
+            name = '<a href="' + venue.url + '" target="_blank">' + name + '</a>';
+        }
+
+        return '<h3>' + name + '</h3>';
     }
 };
