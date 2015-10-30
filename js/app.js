@@ -1,5 +1,11 @@
 "use strict";
 
+/**
+ * Defines Knockout's view model.
+ *
+ * @param address The initial address where the map should be centered.
+ * @constructor
+ */
 var SearchViewModel = function(address){
     var self = this;
     self.searchValue = ko.observable(address.name);
@@ -113,27 +119,35 @@ var SearchViewModel = function(address){
     });
 };
 
+/**
+ * The initial address - as the name states.
+ * We'll start in my dear old home town.
+ *
+ * @type {{name: string, lat: number, lng: number}}
+ */
 var initialAddress = {
     name: 'Hamburg, Germany',
     lat: 53.5510846,
     lng: 9.9936818
 };
 
-var testViewModel;
 /**
- * Initialization
+ * Initialization when the DOM is ready.
  */
 $(document).ready(function() {
     var mapCanvas = document.getElementById("map-canvas");
     googleMaps.initialize(mapCanvas, initialAddress);
     var viewModel = new SearchViewModel(initialAddress);
-    ko.applyBindings(viewModel); testViewModel = viewModel;
+    ko.applyBindings(viewModel);
     placesManager.initialize(viewModel.activePlaces, viewModel.activatedTypes(), viewModel.activatedApis(), googleMaps);
 
     var addPlace = function(place) {
         placesManager.addPlace(place);
     };
 
+    /**
+     * we initialize the APIs when the map is going into the 'idle' state.
+     */
     google.maps.event.addListenerOnce(googleMaps.map, 'idle', function(){
         foursquare.initialize({
             clientId: '2QOBCHZDJ3QLSXXB0WSGNRP0XUZABIFT1YPTEYPZ1YNYOU0M',
@@ -154,6 +168,9 @@ $(document).ready(function() {
         wikipedia.search(initialAddress.name);
     });
 
+    /**
+     * Triggers the search functions of the different Third-Party APIs.
+     */
     var update = function() {
         var center = googleMaps.getCenter();
         var activatedTypes = viewModel.activatedTypes();
@@ -169,6 +186,9 @@ $(document).ready(function() {
 
     var timeout = 0;
 
+    /**
+     * Only start an update when the map center hasn't changed for half a second.
+     */
     google.maps.event.addListener(googleMaps.map, 'center_changed', function() {
         timeout++;
 

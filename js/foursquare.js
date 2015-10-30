@@ -1,5 +1,10 @@
 "use strict";
 
+/**
+ * The Foursquare API.
+ *
+ * @type {{endpoint: string, initialize: Function, typesMap: {food: string[], shopping: string[], sight: string[]}, search: Function, request: Function, determineType: Function, determinePlaceInfo: Function}}
+ */
 var foursquare = {
     endpoint: 'https://api.foursquare.com/v2/venues/explore',
     initialize: function(data) {
@@ -7,11 +12,20 @@ var foursquare = {
         this.clientSecret = data.clientSecret;
         this.resultCallback = data.resultCallback;
     },
+    /**
+     * Maps our Place types to Foursquare's.
+     */
     typesMap: {
         food: ['food', 'drinks', 'coffee'],
         shopping: ['shops'],
         sight: ['sights']
     },
+    /**
+     * Initiates a Place search.
+     *
+     * @param types An array of the types of Places to be searched for.
+     * @param latlng A LatLng object where to search.
+     */
     search: function(types, latlng) {
         var self = this;
 
@@ -24,6 +38,12 @@ var foursquare = {
             })
         });
     },
+    /**
+     * Initiates an AJAX request to the Foursquare API.
+     *
+     * @param section The 'section' of Foursquare is what is called 'type' internally.
+     * @param latlng A LatLng object where to search.
+     */
     request: function(section, latlng) {
         var self = this;
         var ll = latlng.lat() + ',' + latlng.lng();
@@ -48,6 +68,7 @@ var foursquare = {
             var type = self.determineType(data.response.query);
 
             data.response.groups[0].items.forEach(function(item) {
+                // Create a Place for every successful response.
                 var place = new Place({
                     lat: item.venue.location.lat,
                     lng: item.venue.location.lng,
@@ -61,10 +82,15 @@ var foursquare = {
                 self.resultCallback(place);
             });
         }).fail(function(data) {
-            console.log("##### FOURSQUARE REQUEST FAILED!");
-            console.log(data);
+            // ignore failed requests.
         });
     },
+    /**
+     * Re-Maps a Foursquare type to an internal one.
+     *
+     * @param fsType The Foursquare type.
+     * @returns {string} The name of the internal type.
+     */
     determineType: function(fsType) {
         var keys = Object.keys(this.typesMap);
         for (var i in keys) {
@@ -76,6 +102,12 @@ var foursquare = {
         // only when 'sights' were requested the Foursquare API returns an empty 'query' field
         return 'sight';
     },
+    /**
+     * Puts together the HTMl that will be shown in the Place's Info Box.
+     *
+     * @param apiResult The result returned from the Foursquare API.
+     * @returns {string} HTML code.
+     */
     determinePlaceInfo: function(apiResult) {
         var venue = apiResult.venue;
         var name = venue.name;
