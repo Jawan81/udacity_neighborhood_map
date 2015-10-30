@@ -1,3 +1,4 @@
+"use strict";
 
 var googleMaps = {
     initialize: function(mapCanvas, address) {

@@ -1,3 +1,5 @@
+"use strict";
+
 var SearchViewModel = function(address){
     var self = this;
     self.searchValue = ko.observable(address.name);
