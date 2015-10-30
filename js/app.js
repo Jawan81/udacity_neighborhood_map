@@ -28,6 +28,13 @@ var SearchViewModel = function(address){
         }
     };
 
+    self.activePlaces = ko.observableArray([]);
+    self.selectedActivePlace = ko.observable();
+
+    self.selectedActivePlace.subscribe(function(selectedPlace) {
+        googleMaps.markerBounce(selectedPlace[0].marker);
+    });
+
     googleMaps.searchResults.subscribe(function() {
         var results = googleMaps.searchResults();
         var formatted = [];
@@ -116,6 +123,7 @@ var initialAddress = {
     lng: 9.9936818
 };
 
+var testViewModel;
 /**
  * Initialization
  */
@@ -123,8 +131,8 @@ $(document).ready(function() {
     var mapCanvas = document.getElementById("map-canvas");
     googleMaps.initialize(mapCanvas, initialAddress);
     var viewModel = new SearchViewModel(initialAddress);
-    ko.applyBindings(viewModel);
-    placesManager.initialize(viewModel.activatedTypes(), viewModel.activatedApis(), googleMaps);
+    ko.applyBindings(viewModel); testViewModel = viewModel;
+    placesManager.initialize(viewModel.activePlaces, viewModel.activatedTypes(), viewModel.activatedApis(), googleMaps);
 
     var addPlace = function(place) {
         placesManager.addPlace(place);

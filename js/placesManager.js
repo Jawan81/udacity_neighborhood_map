@@ -2,7 +2,8 @@
 
 var placesManager = {
     places: [],
-    initialize: function(activeTypes, activeApis, googleMaps) {
+    initialize: function(activePlaces, activeTypes, activeApis, googleMaps) {
+        this.activePlaces = activePlaces;
         this.activeTypes = activeTypes;
         this.activeApis = activeApis;
         this.googleMaps = googleMaps;
@@ -20,6 +21,7 @@ var placesManager = {
 
         this.updateIcon(place);
         place.active = true;
+        this.activePlaces.push(place);
 
         if (undefined === place.location) {
             // Geocode in case the Place's location is unknown
@@ -51,10 +53,12 @@ var placesManager = {
             place.active = false;
             self.googleMaps.showOrHidePlace(place);
         });
+        this.activePlaces.removeAll();
         this.places = [];
     },
     update: function() {
         var self = this;
+        self.activePlaces.removeAll();
         this.places.forEach(function(place) {
             self.updatePlaceActive(place);
             self.googleMaps.showOrHidePlace(place);
@@ -62,6 +66,10 @@ var placesManager = {
     },
     updatePlaceActive: function(place) {
         place.active = this.isPlaceActive(place);
+
+        if (place.active) {
+            this.activePlaces.push(place);
+        }
     },
     isPlaceActive: function(place) {
         return 0 <= this.activeApis.indexOf(place.api)
@@ -70,7 +78,6 @@ var placesManager = {
     },
     updateFilterQuery: function(query) {
         this.filterQuery = query.toLowerCase();
-        console.log(this.filterQuery);
         this.update();
     }
 };

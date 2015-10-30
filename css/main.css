@@ -61,6 +61,11 @@ h3 {
 }
 
 
+#active-places {
+    height: 200px;
+}
+
+
 .suggestions {
     border-radius: 2px;
     /*border-top: 1px solid #393939;*/

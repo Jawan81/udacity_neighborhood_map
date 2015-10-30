@@ -63,6 +63,7 @@
                         <label for="sights-filter">Sights</label>
                     </div>
                 </fieldset>
+                <select id="active-places" class="filters-bottom" multiple="multiple" data-bind="options: activePlaces, optionsText: 'name', selectedOptions:selectedActivePlace"> </select>
                 <input type="button" class="filters-bottom" data-bind="click: clearAll" value="Clear All">
             </form>
 
