@@ -88,7 +88,7 @@ var googleMaps = {
 
         marker.addListener('click', function() {
             self.markerBounce(marker);
-            self.infowindow.setContent(place.name);
+            self.infowindow.setContent(place.renderName);
             self.infowindow.open(self.map, this);
         });
 

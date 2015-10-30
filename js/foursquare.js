@@ -41,8 +41,6 @@ var foursquare = {
                 section: section
             }
         }).done(function(data) {
-            //console.log('########## FOURSQUARE:');
-            //console.log(data);
             if (data.response.groups.length === 0) {
                 return;
             }
@@ -54,7 +52,8 @@ var foursquare = {
                     lat: item.venue.location.lat,
                     lng: item.venue.location.lng,
                     api: 'foursquare',
-                    name: self.determinePlaceInfo(item),
+                    name: item.venue.name,
+                    renderName: self.determinePlaceInfo(item),
                     type: type,
                     id: 'fs_' + item.venue.id
                 });

@@ -43,7 +43,8 @@ var wikipedia  = {
                 }
 
                 var place = new Place({
-                    name: '<h2><img class="wikilogo" src="icon/wikipedia.png">Wikipedia</h2>' + extract,
+                    name: term,
+                    renderName: '<h2><img class="wikilogo" src="icon/wikipedia.png">Wikipedia</h2>' + extract,
                     address: term,
                     priority: 5,
                     api: 'wikipedia',

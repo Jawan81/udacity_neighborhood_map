@@ -32,7 +32,7 @@ h3 {
     left: 20px;
     top: 20px;
     width: 300px;
-    min-height: 500px;
+    min-height: 700px;
     /*background-color: white;*/
     opacity: 0.9;
     box-shadow: 5px 5px 5px #393939;
@@ -114,13 +114,26 @@ h3 {
 
 .filters {
     position: absolute;
-    top: 130px;
+    top: 170px;
     z-index: -1;
     font-size: 10px;
+    box-sizing: border-box;
 }
 
 
 .wikilogo {
     height: 67px;
     width: 58px;
+}
+
+
+.filters-left, .filters-right {
+    float: left;
+    width: 41%;
+}
+
+
+.filters-bottom {
+    float: left;
+    width: 96%;
 }

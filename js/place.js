@@ -14,6 +14,11 @@ function Place(data) {
                 return data.name;
             }
         },
+        "renderName": {
+            get: function() {
+                return data.renderName;
+            }
+        },
         "lat": {
             get: function() {
                 return data.lat;

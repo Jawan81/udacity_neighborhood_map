@@ -37,7 +37,8 @@ var googlePlaces = {
                 var result = results[i];
                 var place = new Place({
                     location: result.geometry.location,
-                    name: self.determinePlaceInfo(result),
+                    name: result.name,
+                    renderName: self.determinePlaceInfo(result),
                     type: self.determineType(result.types),
                     address: result.vicinity,
                     icon: result.icon,

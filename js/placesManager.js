@@ -6,6 +6,7 @@ var placesManager = {
         this.activeTypes = activeTypes;
         this.activeApis = activeApis;
         this.googleMaps = googleMaps;
+        this.filterQuery = '';
     },
     addPlace: function(place) {
         var self = this;
@@ -64,7 +65,12 @@ var placesManager = {
     },
     isPlaceActive: function(place) {
         return 0 <= this.activeApis.indexOf(place.api)
-            && 0 <= this.activeTypes.indexOf(place.type);
+            && 0 <= this.activeTypes.indexOf(place.type)
+            && (this.filterQuery === '' || 0 <= place.name.toLowerCase().indexOf(this.filterQuery));
+    },
+    updateFilterQuery: function(query) {
+        this.filterQuery = query.toLowerCase();
+        console.log(this.filterQuery);
+        this.update();
     }
-
 };

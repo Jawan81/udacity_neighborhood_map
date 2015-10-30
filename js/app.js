@@ -39,6 +39,12 @@ var SearchViewModel = function(address){
         self.searchResults(formatted);
     });
 
+    self.filterQuery = ko.observable();
+
+    self.filter = function() {
+        placesManager.updateFilterQuery(self.filterQuery());
+    };
+
     self.activateWikipedia = ko.observable(true);
     self.activateFoursquare = ko.observable(true);
     self.activateGooglePlaces = ko.observable(true);

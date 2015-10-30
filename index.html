@@ -12,7 +12,7 @@
             <h1 class="title">Jawan's Places</h1>
         </div>
         <form>
-            <!--<label for="location-search">Search</label>-->
+            <label for="location-search">City Search</label>
             <input type="text" id="location-search" placeholder="Search"
                    data-bind='value: searchValue, valueUpdate: "afterkeydown", event: { keyup: search }'/>
 
@@ -29,7 +29,11 @@
         <div class="filters">
             <h3>Filters</h3>
             <form>
-                <fieldset>
+                <label for="filter-query">Filter By</label>
+                <input type="text" id="filter-query" placeholder=""
+                       data-bind='value: filterQuery, valueUpdate: "afterkeydown", event: { keyup: filter }'/>
+
+                <fieldset class="filters-left">
                     <legend>Services</legend>
                     <div>
                         <input id="wikipedia-filter" type="checkbox" class="filter" data-bind="checked: activateWikipedia">
@@ -44,7 +48,7 @@
                         <label for="google-places-filter">Google Places</label>
                     </div>
                 </fieldset>
-                <fieldset>
+                <fieldset class="filters-right">
                     <legend>Places</legend>
                     <div>
                         <input id="restaurants-filter" type="checkbox" class="filter" data-bind="checked: activateEating">
@@ -59,7 +63,7 @@
                         <label for="sights-filter">Sights</label>
                     </div>
                 </fieldset>
-                <input type="button" data-bind="click: clearAll" value="Clear">
+                <input type="button" class="filters-bottom" data-bind="click: clearAll" value="Clear All">
             </form>
 
         </div>
