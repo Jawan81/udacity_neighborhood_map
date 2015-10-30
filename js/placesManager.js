@@ -7,6 +7,7 @@ var placesManager = {
         this.googleMaps = googleMaps;
     },
     addPlace: function(place) {
+        var self = this;
         var found = this.places.filter(function(p) {
             return p.id === place.id;
         });
@@ -17,8 +18,17 @@ var placesManager = {
 
         this.updateIcon(place);
         place.active = true;
-        this.places.push(place);
-        this.googleMaps.createMarkerForPlace(place);
+
+        if (undefined === place.location) {
+            // Geocode in case the Place's location is unknown
+            googleMaps.geocodePlace(place, function (updatedPlace) {
+                self.places.push(updatedPlace);
+                googleMaps.createMarkerForPlace(updatedPlace);
+            });
+        } else {
+            this.places.push(place);
+            this.googleMaps.createMarkerForPlace(place);
+        }
     },
     updateActiveApis: function(apis) {
         this.activeApis = apis;

@@ -74,7 +74,7 @@ var foursquare = {
             }
         }
 
-        // when 'sights' were requested the 'query' field is empty - why?!
+        // only when 'sights' were requested the Foursquare API returns an empty 'query' field
         return 'sight';
     },
     determinePlaceInfo: function(apiResult) {

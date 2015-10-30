@@ -108,7 +108,7 @@ var yelp = {
                 api: 'yelp'
             });
 
-            googleMaps.updateLatLng(place, function(updatedPlace) {
+            googleMaps.geocodePlace(place, function(updatedPlace) {
                 self.lastResults.push(updatedPlace);
                 self.resultsCallback(updatedPlace);
             });

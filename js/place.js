@@ -44,6 +44,10 @@ function Place(data) {
                     return data.location;
                 }
 
+                if ('undefined' === typeof(data.lng) || 'undefined' === typeof(data.lat)) {
+                    return undefined;
+                }
+
                 return {
                     lng: data.lng,
                     lat: data.lat
@@ -80,6 +84,11 @@ function Place(data) {
             },
             set: function(marker) {
                 data.marker = marker;
+            }
+        },
+        "iconSize": {
+            get: function() {
+                return data.iconSize;
             }
         },
         "possibleTypes": {

@@ -1,21 +1,16 @@
-var wikiResponse = {};
+"use strict";
+
 var wikipedia  = {
 
     initialize: function(data) {
-        this.addPlaceToMap = data.addPlaceToMap;
-
+        this.resultCallback = data.resultCallback;
     },
     search: function(term) {
+        var self = this;
 
-       // var url = 'http://en.wikipedia.org/w/api.php?action=query&titles=Main%20Page&prop=revisions&rvprop=content&format=json';
-
-        //var url = 'http://en.wikipedia.org/w/api.php?action=query&titles=' +
-        //var url = 'http://en.wikipedia.org/w/api.php?action=parse&section=0&prop=text&page=' +
         var url = ' http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=' +
             encodeURIComponent(term);
-            //+ '&format=json';//&prop=revisions&rvprop=content
 
-        //'/w/api.php?action=query&list=allpages&prop=info&format=json&apfrom=Hamburg';
         $.ajax( {
             url: url,
             //data: queryData,
@@ -25,7 +20,6 @@ var wikipedia  = {
             type: 'POST',
             headers: { 'Api-User-Agent': 'udacity-course/1.0' }
         }).done(function(data) {
-            wikiResponse = data;
             if ('undefined' === typeof(data.query.pages)) {
                 return;
             }
@@ -33,8 +27,6 @@ var wikipedia  = {
             var pages = data.query.pages;
             for(var index in pages) {
                 if(pages.hasOwnProperty(index)) {
-                    console.log('#### Wikipedia result: ' + term);
-                    console.log(pages);//[index].extract);
                     var extract = pages[index].extract;
                     var place = new Place({
                         name: '<h2><img class="wikilogo" src="icon/wikipedia.png">Wikipedia</h2>' + extract,
@@ -43,12 +35,11 @@ var wikipedia  = {
                         api: 'wikipedia',
                         type: 'wikipedia',
                         icon: 'icon/wikipedia.png',
+                        iconSize: { width: 150, height: 150},
                         id: 'wiki_' + pages[index].pageid
                     });
 
-                    googleMaps.updateLatLng(place, function(updatedPlace) {
-                        googleMaps.createMarkerForPlace(updatedPlace, { width: 150, height: 150});
-                    })
+                    self.resultCallback(place);
                 }
             }
         }).fail(function() {

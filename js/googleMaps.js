@@ -19,7 +19,7 @@ var googleMaps = {
             self.searchResults(results);
         });
     },
-    updateLatLng: function(place, callback) {
+    geocodePlace: function(place, callback) {
         this.geocode(place.address, function(results) {
             if ('undefined' === typeof(results[0])) {
                 return;
@@ -67,11 +67,12 @@ var googleMaps = {
         }
         this.currentMarker = marker;
     },
-    createMarkerForPlace: function(place, size) {
+    createMarkerForPlace: function(place) {
         var self = this;
+        var size = { width: 71, height: 71 };
 
-        if (undefined === size) {
-            size = { width: 71, height: 71 };
+        if (undefined !== place.iconSize) {
+            size = place.iconSize;
         }
 
         var image = {

@@ -123,11 +123,6 @@ $(document).ready(function() {
     };
 
     google.maps.event.addListenerOnce(googleMaps.map, 'idle', function(){
-        //yelp.initialize({
-        //    apiKey: "E64ahrrCO0X_zDyPHQDYrw",
-        //    callback:  addPlace,
-        //    map: googleMaps.map
-        //});
         foursquare.initialize({
             clientId: '2QOBCHZDJ3QLSXXB0WSGNRP0XUZABIFT1YPTEYPZ1YNYOU0M',
             clientSecret: 'ELAFO2AIFTJUKDAA3HO524T02KMLUDQK5DDEBCVHZ25SJQVO',
@@ -136,6 +131,10 @@ $(document).ready(function() {
 
         googlePlaces.initialize({
             map: googleMaps.map,
+            resultCallback: addPlace
+        });
+
+        wikipedia.initialize({
             resultCallback: addPlace
         });
 
