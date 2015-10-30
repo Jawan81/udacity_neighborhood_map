@@ -1,5 +1,14 @@
 "use strict";
 
+/**
+ * The Yelp API.
+ *
+ * IMPORTANT: The Yelp API v1.0 was removed by Yelp during project development. So it cannot be activated in this
+ * project anymore. I left the code here to demonstrate that it was implemented once...
+ * The API v2.0 cannot be used with JavaScript anymore as it requires API keys, OAuth and stuff.
+ *
+ * @type {{apiKey: string, numResults: number, mapBounds: {tlLat: number, tlLng: number, brLat: number, brLng: number}, lastResults: Array, requestUrl: string, resultsCallback: null, map: null, blocked: boolean, initialize: Function, setMapBounds: Function, setUpRequestUrl: Function, search: Function, processResults: Function}}
+ */
 var yelp = {
     apiKey: '',
     numResults: 10,
@@ -24,10 +33,6 @@ var yelp = {
 
         this.map = data.map;
         this.setMapBounds();
-
-        //if (undefined !== data.map) {
-        //    this.setMapBounds(data.map);
-        //}
     },
     setMapBounds: function() {
         var mapBounds = this.map.getBounds();

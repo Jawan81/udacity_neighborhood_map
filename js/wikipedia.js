@@ -1,10 +1,20 @@
 "use strict";
 
+/**
+ * The Wikipedia API.
+ *
+ * @type {{endpoint: string, initialize: Function, search: Function}}
+ */
 var wikipedia  = {
     endpoint: 'http://en.wikipedia.org/w/api.php',
     initialize: function(data) {
         this.resultCallback = data.resultCallback;
     },
+    /**
+     * Initiates a search for a search term.
+     *
+     * @param {string} term
+     */
     search: function(term) {
         var self = this;
         // use term up to first comma occurrence. Otherwise Wikipedia is irritated most of the time
@@ -12,6 +22,9 @@ var wikipedia  = {
             term = term.slice(0, term.indexOf(','));
         }
 
+        /**
+         * Initiate the AJAX request.
+         */
         $.ajax( {
             url: self.endpoint,
             data: {
@@ -42,6 +55,10 @@ var wikipedia  = {
                     continue;
                 }
 
+                /**
+                 * Use the extracted Wikipedia article as the renderName.
+                 * @type {Place}
+                 */
                 var place = new Place({
                     name: term,
                     renderName: '<h2><img class="wikilogo" src="icon/wikipedia.png">Wikipedia</h2>' + extract,
