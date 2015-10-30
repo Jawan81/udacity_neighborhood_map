@@ -1,19 +1,22 @@
 "use strict";
 
 var wikipedia  = {
-
+    endpoint: 'http://en.wikipedia.org/w/api.php',
     initialize: function(data) {
         this.resultCallback = data.resultCallback;
     },
     search: function(term) {
         var self = this;
 
-        var url = ' http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&titles=' +
-            encodeURIComponent(term);
-
         $.ajax( {
-            url: url,
-            //data: queryData,
+            url: self.endpoint,
+            data: {
+                action: 'query',
+                prop: 'extracts',
+                format: 'json',
+                exintro: '',
+                titles: encodeURIComponent(term)
+            },
             dataType: 'jsonp',
             jsonp: 'callback',
             crossDomain: true,
