@@ -22,6 +22,7 @@ var placesManager = {
         this.updateIcon(place);
         place.active = true;
         this.activePlaces.push(place);
+        self.sortActivePlaces();
 
         if (undefined === place.location) {
             // Geocode in case the Place's location is unknown
@@ -33,6 +34,14 @@ var placesManager = {
             this.places.push(place);
             this.googleMaps.createMarkerForPlace(place);
         }
+    },
+    changeCity: function(selected) {
+        this.clearAll();
+
+        googleMaps.setCenter({
+            name: selected.name,
+            location: selected.result.geometry.location
+        });
     },
     updateActiveApis: function(apis) {
         this.activeApis = apis;
@@ -62,6 +71,14 @@ var placesManager = {
         this.places.forEach(function(place) {
             self.updatePlaceActive(place);
             self.googleMaps.showOrHidePlace(place);
+        });
+        self.sortActivePlaces();
+    },
+    sortActivePlaces: function() {
+        this.activePlaces.sort(function(left, right) {
+            var l = left.name.toLowerCase();
+            var r = right.name.toLowerCase();
+            return l == r ? 0 : (l < r ? -1 : 1);
         });
     },
     updatePlaceActive: function(place) {

@@ -17,13 +17,9 @@ var SearchViewModel = function(address){
 
         self.searchValue(selected.name);
         self.searchResults([]);
-        googleMaps.setCenter({
-            name: selected.name,
-            location: selected.result.geometry.location
-        });
+        placesManager.changeCity(selected);
 
         if (self.activateWikipedia()) {
-            //var sliced = selected.name.slice(0, selected.name.indexOf(','));
             wikipedia.search(selected.name);
         }
     };
@@ -32,7 +28,7 @@ var SearchViewModel = function(address){
     self.selectedActivePlace = ko.observable();
 
     self.selectedActivePlace.subscribe(function(selectedPlace) {
-        googleMaps.markerBounce(selectedPlace[0].marker);
+        googleMaps.selectMarker(selectedPlace);
     });
 
     googleMaps.searchResults.subscribe(function() {

@@ -29,11 +29,11 @@
         <div class="filters">
             <h3>Filters</h3>
             <form>
-                <label for="filter-query">Filter By</label>
+                <label for="filter-query">Filter by Name</label>
                 <input type="text" id="filter-query" placeholder=""
                        data-bind='value: filterQuery, valueUpdate: "afterkeydown", event: { keyup: filter }'/>
 
-                <fieldset class="filters-left">
+                <fieldset class="filter-item filters-left">
                     <legend>Services</legend>
                     <div>
                         <input id="wikipedia-filter" type="checkbox" class="filter" data-bind="checked: activateWikipedia">
@@ -48,7 +48,7 @@
                         <label for="google-places-filter">Google Places</label>
                     </div>
                 </fieldset>
-                <fieldset class="filters-right">
+                <fieldset class="filter-item filters-right">
                     <legend>Places</legend>
                     <div>
                         <input id="restaurants-filter" type="checkbox" class="filter" data-bind="checked: activateEating">
@@ -63,13 +63,18 @@
                         <label for="sights-filter">Sights</label>
                     </div>
                 </fieldset>
-                <select id="active-places" class="filters-bottom" multiple="multiple" data-bind="options: activePlaces, optionsText: 'name', selectedOptions:selectedActivePlace"> </select>
-                <input type="button" class="filters-bottom" data-bind="click: clearAll" value="Clear All">
+                <label class="filters-bottom" for="active-places">Active Places</label>
+                <select id="active-places" size="20" class="filter-item filters-bottom" multiple="multiple" data-bind="options: activePlaces,
+                 optionsText: function(place) {
+                    return place.name + ' (' + place.api + ')';
+                 },
+                 value: selectedActivePlace"> </select>
+                <input type="button" class="filter-item filters-bottom" data-bind="click: clearAll" value="Clear All">
             </form>
 
         </div>
         <div class="footer">
-            <h3>Credits</h3>
+            <h4>Credits</h4>
             <ul>
                 <li>Icons taken from <a href="https://mapicons.mapsmarker.com">Maps Icons Collection</a>
             </ul>

@@ -22,7 +22,7 @@ var foursquare = {
             self.typesMap[type].forEach(function(section) {
                 self.request(section, latlng);
             })
-        })
+        });
     },
     request: function(section, latlng) {
         var self = this;

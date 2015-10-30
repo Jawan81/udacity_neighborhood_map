@@ -63,6 +63,17 @@ var googleMaps = {
         }
         this.currentMarker = marker;
     },
+    selectMarker: function(place) {
+        if (undefined === place || "undefined" === typeof(place.renderName)) {
+            return;
+        }
+
+        this.map.panTo(place.marker.getPosition());
+        this.markerBounce(place.marker);
+        this.infowindow.setContent(place.renderName);
+        this.infowindow.open(this.map, place.marker);
+
+    },
     createMarkerForPlace: function(place) {
         var self = this;
         var size = { width: 71, height: 71 };
@@ -86,13 +97,11 @@ var googleMaps = {
             zIndex: place.priority
         });
 
-        marker.addListener('click', function() {
-            self.markerBounce(marker);
-            self.infowindow.setContent(place.renderName);
-            self.infowindow.open(self.map, this);
-        });
-
         place.marker = marker;
+
+        marker.addListener('click', function() {
+            self.selectMarker(place);
+        });
     },
     showOrHidePlace: function(place) {
         if(place.active) {

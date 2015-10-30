@@ -61,6 +61,13 @@ h3 {
 }
 
 
+#filter-query {
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+}
+
+
 #active-places {
     height: 200px;
 }
@@ -141,4 +148,9 @@ h3 {
 .filters-bottom {
     float: left;
     width: 96%;
+}
+
+
+.filter-item {
+    margin: 10px 0;
 }
