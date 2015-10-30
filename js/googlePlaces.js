@@ -1,5 +1,10 @@
 "use strict";
 
+/**
+ * The Google Places API.
+ *
+ * @type {{typesMap: {food: string[], shopping: string[], sight: string[]}, initialize: Function, search: Function, determineType: Function, determinePlaceInfo: Function}}
+ */
 var googlePlaces = {
     typesMap: {
         food: ['food', 'restaurant', 'cafe', 'bakery', 'grocery_or_supermarket'],
@@ -10,6 +15,13 @@ var googlePlaces = {
         this.resultCallback = data.resultCallback;
         this.service = data.placesService;
     },
+    /**
+     * Searches places around latlng of specific types and calls the resultCallback for every
+     * place found in case of success.
+     *
+     * @param types The types to be search for.
+     * @param latlng The location around which the search shall be initiated.
+     */
     search: function(types, latlng) {
         var self = this;
 
@@ -50,6 +62,12 @@ var googlePlaces = {
             }
         });
     },
+    /**
+     * Determines the internal place type from the Google Places types received from the API.
+     *
+     * @param gpTypes Array of Google Places types.
+     * @returns {string} The internal place type.
+     */
     determineType: function(gpTypes) {
         var keys = Object.keys(this.typesMap);
         for (var j in gpTypes) {
@@ -63,6 +81,12 @@ var googlePlaces = {
 
         return 'unknown';
     },
+    /**
+     * Puts together the HTMl that will be shown in the Place's Info Box.
+     *
+     * @param apiResult The result returned from the Google Places API.
+     * @returns {string} HTML code.
+     */
     determinePlaceInfo: function(apiResult) {
         var name = '<h3>'+apiResult.name+'</h3>';
         if (!apiResult.hasOwnProperty('photos')) {

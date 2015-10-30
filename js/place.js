@@ -1,24 +1,45 @@
 "use strict";
 
+/**
+ * The Place object stores data for a specific place that can be displayed on a map.
+ *
+ * @param data The initialization data.
+ * @constructor
+ */
 function Place(data) {
     var self = this;
 
+    /**
+     * Defines the object's properties.
+     */
     Object.defineProperties(this, {
+        /**
+         * The id of the place.
+         */
         "id": {
             get: function() {
                 return data.id;
             }
         },
+        /**
+         * The name of the place.
+         */
         "name": {
             get: function() {
                 return data.name;
             }
         },
+        /**
+         * The name that will be rendered in the info box of the place (usually HTML).
+         */
         "renderName": {
             get: function() {
                 return data.renderName;
             }
         },
+        /**
+         * The latitude.
+         */
         "lat": {
             get: function() {
                 return data.lat;
@@ -27,6 +48,9 @@ function Place(data) {
                 data.lat = lat;
             }
         },
+        /**
+         * The longitude.
+         */
         "lng": {
             get: function() {
                 return data.lng;
@@ -35,6 +59,10 @@ function Place(data) {
                 data.lng = lng;
             }
         },
+        /**
+         * Boolean value to determine whether the place is active or not.
+         * Only active places will be shown on the map.
+         */
         "active": {
             get: function() {
                 return data.active;
@@ -43,6 +71,9 @@ function Place(data) {
                 data.active = active;
             }
         },
+        /**
+         * The location of the place. Corresponds to lat and lng.
+         */
         "location": {
             get: function() {
                 if ('undefined' !== typeof(data.location)) {
@@ -62,11 +93,17 @@ function Place(data) {
                 data.location = location;
             }
         },
+        /**
+         * The address of the place.
+         */
         "address": {
             get: function() {
                 return data.address;
             }
         },
+        /**
+         * The icon for the map marker.
+         */
         "icon": {
             get: function() {
                 return data.icon;
@@ -75,6 +112,9 @@ function Place(data) {
                 data.icon = icon;
             }
         },
+        /**
+         * In case the place has a website its URL can be stored here.
+         */
         "url": {
             get: function() {
                 return data.url;
@@ -83,6 +123,9 @@ function Place(data) {
                 data.url = url;
             }
         },
+        /**
+         * A reference to the Google Maps marker of the place.
+         */
         "marker": {
             get: function() {
                 return data.marker;
@@ -91,11 +134,17 @@ function Place(data) {
                 data.marker = marker;
             }
         },
+        /**
+         * The size of the icon in case it differs from the default size.
+         */
         "iconSize": {
             get: function() {
                 return data.iconSize;
             }
         },
+        /**
+         * All possible place types.
+         */
         "possibleTypes": {
             get: function() {
                 return [
@@ -106,6 +155,9 @@ function Place(data) {
                 ]
             }
         },
+        /**
+         * Stores the type of the place. Must be one of "possibleTypes".
+         */
         "type": {
             get: function() {
                 return data.type;
@@ -116,6 +168,10 @@ function Place(data) {
                 }
             }
         },
+        /**
+         * The priority of the place.
+         * Icons of places with higher priority will be shown on top of others.
+         */
         "priority": {
             get: function() {
                 if('undefined' !== typeof(data.priority)) {
@@ -125,17 +181,9 @@ function Place(data) {
                 return 1;
             }
         },
-        "updateGeoData": {
-            value: function() {
-                if (undefined !== data.lng && undefined !== data.lat) {
-                    return;
-                }
-
-                if (undefined !== data.updateGeoData && typeof data.updateGeoData === "function") {
-                    data.updateGeoData(self);
-                }
-            }
-        },
+        /**
+         * The name of the API the place was created of.
+         */
         "api": {
             get: function() {
                 return data.api;
