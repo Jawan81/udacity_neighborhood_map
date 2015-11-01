@@ -3,23 +3,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link href='https://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet'>
     <link href="css/main.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
+    <title>Jawan's Places</title>
 </head>
 <body>
-    <div id="panel">
+    <div class="panel">
         <div class="brand">
             <h1 class="title">Jawan's Places</h1>
         </div>
         <form>
             <label for="location-search">City Search</label>
-            <input type="text" id="location-search" placeholder="Search"
+            <input type="text" id="location-search" class="location-search" placeholder="Search"
                    data-bind='value: searchValue, valueUpdate: "afterkeydown", event: { keyup: search }'/>
 
             <div class="suggestions">
                 <ul data-bind="foreach: searchResults">
                     <li>
-                        <img src="icon/city.png">
+                        <img alt="City Icon" src="icon/city.png">
                         <span data-bind="text: name, click: $parent.selectAddress"></span>
                     </li>
                 </ul>
@@ -30,7 +31,7 @@
             <h3>Filters</h3>
             <form>
                 <label for="filter-query">Filter by Name</label>
-                <input type="text" id="filter-query" placeholder=""
+                <input type="text" id="filter-query" class="filter-query" placeholder=""
                        data-bind='value: filterQuery, valueUpdate: "afterkeydown", event: { keyup: filter }'/>
 
                 <fieldset class="filter-item filters-left">
@@ -64,7 +65,7 @@
                     </div>
                 </fieldset>
                 <label class="filters-bottom" for="active-places">Active Places</label>
-                <select id="active-places" size="20" class="filter-item filters-bottom" multiple="multiple" data-bind="options: activePlaces,
+                <select id="active-places" class="active-places" size="20" class="filter-item filters-bottom" multiple="multiple" data-bind="options: activePlaces,
                  optionsText: function(place) {
                     return place.name + ' (' + place.api + ')';
                  },
@@ -80,8 +81,8 @@
             </ul>
         </div>
     </div>
-    <div id="map-canvas"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+    <div class="map-canvas"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&callback=initialize" async defer></script>
     <script src="js/lib/jquery-2.1.4.min.js"></script>
     <script src="js/lib/knockout-3.3.0.js"></script>
     <script src="js/place.js"></script>

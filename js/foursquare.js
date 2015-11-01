@@ -35,7 +35,7 @@ var foursquare = {
             }
             self.typesMap[type].forEach(function(section) {
                 self.request(section, latlng);
-            })
+            });
         });
     },
     /**

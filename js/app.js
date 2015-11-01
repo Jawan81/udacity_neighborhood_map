@@ -14,7 +14,7 @@ var SearchViewModel = function(address){
         googleMaps.search(self.searchValue());
     };
 
-    self.searchResults = ko.observableArray([]);
+    self.searchResults = ko.observableArray();
 
     self.selectAddress = function(selected) {
         if (undefined === selected) {
@@ -30,7 +30,7 @@ var SearchViewModel = function(address){
         }
     };
 
-    self.activePlaces = ko.observableArray([]);
+    self.activePlaces = ko.observableArray();
     self.selectedActivePlace = ko.observable();
 
     self.selectedActivePlace.subscribe(function(selectedPlace) {
@@ -131,10 +131,12 @@ var initialAddress = {
     lng: 9.9936818
 };
 
+
 /**
- * Initialization when the DOM is ready.
+ * Initializes the project.
+ * Called by Google Maps JS as a callback after the library is loaded asynchronously.
  */
-$(document).ready(function() {
+function initialize() {
     var mapCanvas = document.getElementById("map-canvas");
     googleMaps.initialize(mapCanvas, initialAddress);
     var viewModel = new SearchViewModel(initialAddress);
@@ -194,10 +196,10 @@ $(document).ready(function() {
 
         setTimeout(function() {
             timeout = timeout > 0 ? timeout - 1 : 0;
-            if (timeout == 0) {
+            if (timeout === 0) {
                 update();
             }
         }, 500);
     });
-});
+};
 
