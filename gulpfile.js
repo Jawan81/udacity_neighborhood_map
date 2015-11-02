@@ -32,7 +32,7 @@ gulp.task('images', function() {
         .pipe(gulp.dest(imgDst));
 });
 
-// Script task
+// JS task
 gulp.task('build-js', function() {
     gulp.src('js/*')
         .pipe(sourcemaps.init())
@@ -48,6 +48,11 @@ gulp.task('build-css', function() {
     gulp.src('css/**/*')
         .pipe(minifyCSS())
         .pipe(gulp.dest('dist/css'));
+});
+
+// Cleanup task
+gulp.task('clean', function(cb) {
+    del(['dist/css', 'dist/js', 'dist/icon'], cb)
 });
 
 // Rerun the task when a file changes
