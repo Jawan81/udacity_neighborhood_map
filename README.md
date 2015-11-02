@@ -46,6 +46,10 @@ On the map you see all currently active places indicated by different markers. T
 type of the place. By clicking on one of the markers it will start to bounce and an Info Box is opened for you. It contains
 information retrieved from the API, sometimes with photos or a link to the website of the place.
 
+## Storage
+The city and the places on the map are stored in the "local storage" of the browser so that they will be restored
+when you revisit the website after having closed the browser tab.
+
 ## Filtering
 
 ### Filter By Name
