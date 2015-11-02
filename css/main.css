@@ -24,23 +24,12 @@ h3 {
 }
 
 
-.title {
-    margin: 0 0 10px;
-}
-
-
 .panel {
-    color: #ffffff;
     position: absolute;
-    left: 20px;
-    top: 20px;
-    width: 300px;
-    min-height: 700px;
+    color: #ffffff;
     opacity: 0.9;
     box-shadow: 5px 5px 5px #393939;
     z-index: 5;
-    padding: 10px;
-
     background: -moz-linear-gradient(top, rgba(176,212,227,1) 0%, rgba(136,186,207,1) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(176,212,227,1)), color-stop(100%,rgba(136,186,207,1))); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top, rgba(176,212,227,1) 0%,rgba(136,186,207,1) 100%); /* Chrome10+,Safari5.1+ */
@@ -51,13 +40,177 @@ h3 {
 
 
 .location-search {
-    width: 97%;
-    height: 30px;
-    font-size: 1em;
     color: #000000;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+    margin: 0 auto;
+}
+
+
+.filters {
+    z-index: -1;
+    box-sizing: border-box;
+}
+
+
+.full-height {
+    height: 100%;
+}
+
+
+/* Desktop screens */
+@media screen and (min-width:600px) and (min-height: 740px) {
+    .title {
+        margin: 0 0 10px;
+    }
+
+
+    .panel {
+        left: 20px;
+        top: 20px;
+        width: 300px;
+        height: 700px;
+        padding: 10px;
+    }
+
+
+    .location-search {
+        width: 97%;
+        height: 30px;
+        font-size: 1em;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+    }
+
+
+    .box-shadow-menu {
+        display: none;
+    }
+
+
+    .filters {
+        position: absolute;
+        top: 170px;
+        font-size: 10px;
+    }
+
+
+    .active-places {
+        height: 200px;
+    }
+
+
+    .collapsable {
+        display: block;
+    }
+}
+
+
+/* Mobile screens */
+@media screen and (max-width:599px), screen and (max-height:739px) {
+    h1 {
+        font-size: 1em;
+    }
+
+
+    label {
+        font-size: 0.8em;
+    }
+
+
+    .brand {
+        float: left;
+        width: 90%;
+    }
+
+
+    .menu {
+        float: left;
+        width: 10%;
+    }
+
+
+    .title {
+        margin: 0 0 4px;
+    }
+
+
+    .panel {
+        width: 100%;
+    }
+
+
+    .collapsable {
+        display: none;
+    }
+
+
+    .filters {
+        float: left;
+        z-index: -1;
+        font-size: 10px;
+        box-sizing: border-box;
+    }
+
+
+    .location-search {
+        width: 95%;
+        float: left;
+        height: 20px;
+        font-size: 0.8em;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+    }
+
+
+    .label {
+        float: left;
+    }
+
+
+    .filter-by-name {
+        float: left;
+        width: 100%;
+    }
+
+
+    .filter-query {
+        float: left;
+    }
+
+
+    .active-places {
+        height: 150px;
+    }
+
+
+    .mobile-menu {
+        position: relative;
+        padding-left: 1.25em;
+        margin-right: 5px;
+    }
+
+
+    .mobile-menu:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.25em;
+        width: 2em;
+        height: 0.3em;
+        background: white;
+        box-shadow:
+        0 0.6em 0 0 white,
+        0 1.2em 0 0 white;
+    }
+
+
+    @media screen and (max-height: 590px) {
+        .footer {
+            display: none;
+        }
+    }
 }
 
 
@@ -65,11 +218,6 @@ h3 {
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
     border-radius: 7px;
-}
-
-
-.active-places {
-    height: 200px;
 }
 
 
@@ -121,15 +269,6 @@ h3 {
 }
 
 
-.filters {
-    position: absolute;
-    top: 170px;
-    z-index: -1;
-    font-size: 10px;
-    box-sizing: border-box;
-}
-
-
 .wikilogo {
     height: 67px;
     width: 58px;
@@ -143,7 +282,7 @@ h3 {
 }
 
 
-.filters-bottom {
+.bottom {
     float: left;
     width: 96%;
 }

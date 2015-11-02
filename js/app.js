@@ -184,7 +184,7 @@ function initialize() {
     };
 
     /**
-     * we initialize the APIs when the map is going into the 'idle' state.
+     * We initialize the APIs when the map is going into the 'idle' state.
      */
     google.maps.event.addListenerOnce(googleMaps.map, 'idle', function(){
         foursquare.initialize({
@@ -247,6 +247,23 @@ function initialize() {
                 update();
             }
         }, 500);
+    });
+
+    /**
+     * Show or collapse panel for mobile displays.
+     */
+    $('#mobile-menu').click(function() {
+        $('.panel').toggleClass('full-height');
+        $('.collapsable').toggle();
+    });
+
+    /**
+     * Make sure the panel is shown on resize (in dev tools).
+     */
+    $(window).resize(function() {
+        if ($('.active-places').height() > 150) {
+            $('.collapsable').show();
+        }
     });
 }
 

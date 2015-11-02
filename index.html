@@ -12,8 +12,11 @@
         <div class="brand">
             <h1 class="title">Jawan's Places</h1>
         </div>
+        <div class="menu">
+            <a href="#" id="mobile-menu" class="mobile-menu"></a>
+        </div>
         <form>
-            <label for="location-search">City Search</label>
+            <label for="location-search" class="label">City Search</label>
             <input type="text" id="location-search" class="location-search" placeholder="Search"
                    data-bind='value: searchValue, valueUpdate: "afterkeydown", event: { keyup: search }'/>
 
@@ -27,56 +30,60 @@
             </div>
         </form>
 
-        <div class="filters">
-            <h3>Filters</h3>
-            <form>
-                <label for="filter-query">Filter by Name</label>
-                <input type="text" id="filter-query" class="filter-query" placeholder=""
-                       data-bind='value: filterQuery, valueUpdate: "afterkeydown", event: { keyup: filter }'/>
-                <fieldset class="filter-item filters-left">
-                    <legend>Services</legend>
-                    <div>
-                        <input id="wikipedia-filter" type="checkbox" class="filter" data-bind="checked: activateWikipedia">
-                        <label for="wikipedia-filter">Wikipedia</label>
+        <div class="collapsable">
+            <div class="filters">
+                <h3>Filters</h3>
+                <form>
+                    <div class="filter-by-name">
+                        <label for="filter-query" class="label">Filter by Name</label>
+                        <input type="text" id="filter-query" class="filter-query" placeholder=""
+                               data-bind='value: filterQuery, valueUpdate: "afterkeydown", event: { keyup: filter }'/>
                     </div>
-                    <div>
-                        <input id="foursquare-filter" type="checkbox" class="filter" data-bind="checked: activateFoursquare">
-                        <label for="foursquare-filter">Foursquare</label>
-                    </div>
-                    <div>
-                        <input id="google-places-filter" type="checkbox" class="filter" data-bind="checked: activateGooglePlaces">
-                        <label for="google-places-filter">Google Places</label>
-                    </div>
-                </fieldset>
-                <fieldset class="filter-item filters-right">
-                    <legend>Places</legend>
-                    <div>
-                        <input id="restaurants-filter" type="checkbox" class="filter" data-bind="checked: activateEating">
-                        <label for="restaurants-filter">Eating</label>
-                    </div>
-                    <div>
-                        <input id="shops-filter" type="checkbox" class="filter" data-bind="checked: activateShopping">
-                        <label for="shops-filter">Shopping</label>
-                    </div>
-                    <div>
-                        <input id="sights-filter" type="checkbox" class="filter" data-bind="checked: activateSights">
-                        <label for="sights-filter">Sights</label>
-                    </div>
-                </fieldset>
-                <label class="filters-bottom" for="active-places">Active Places</label>
-                <select id="active-places" class="active-places filter-item filters-bottom" size="20" multiple="multiple" data-bind="options: activePlaces,
-                 optionsText: function(place) {
-                    return place.name + ' (' + place.api + ')';
-                 },
-                 value: selectedActivePlace"> </select>
-                <input type="button" class="filter-item filters-bottom" data-bind="click: clearAll" value="Clear All">
-            </form>
-        </div>
-        <div class="footer">
-            <h4>Credits</h4>
-            <ul>
-                <li>Icons taken from <a href="https://mapicons.mapsmarker.com">Maps Icons Collection</a>
-            </ul>
+                    <fieldset class="filter-item filters-left">
+                        <legend>Services</legend>
+                        <div>
+                            <input id="wikipedia-filter" type="checkbox" class="filter" data-bind="checked: activateWikipedia">
+                            <label for="wikipedia-filter">Wikipedia</label>
+                        </div>
+                        <div>
+                            <input id="foursquare-filter" type="checkbox" class="filter" data-bind="checked: activateFoursquare">
+                            <label for="foursquare-filter">Foursquare</label>
+                        </div>
+                        <div>
+                            <input id="google-places-filter" type="checkbox" class="filter" data-bind="checked: activateGooglePlaces">
+                            <label for="google-places-filter">Google Places</label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="filter-item filters-right">
+                        <legend>Places</legend>
+                        <div>
+                            <input id="restaurants-filter" type="checkbox" class="filter" data-bind="checked: activateEating">
+                            <label for="restaurants-filter">Eating</label>
+                        </div>
+                        <div>
+                            <input id="shops-filter" type="checkbox" class="filter" data-bind="checked: activateShopping">
+                            <label for="shops-filter">Shopping</label>
+                        </div>
+                        <div>
+                            <input id="sights-filter" type="checkbox" class="filter" data-bind="checked: activateSights">
+                            <label for="sights-filter">Sights</label>
+                        </div>
+                    </fieldset>
+                    <label class="bottom" for="active-places">Active Places</label>
+                    <select id="active-places" class="active-places filter-item bottom" size="20" multiple="multiple" data-bind="options: activePlaces,
+                     optionsText: function(place) {
+                        return place.name + ' (' + place.api + ')';
+                     },
+                     value: selectedActivePlace"> </select>
+                    <input type="button" class="filter-item bottom" data-bind="click: clearAll" value="Clear All">
+                </form>
+            </div>
+            <div class="footer bottom">
+                <h4>Credits</h4>
+                <ul>
+                    <li>Icons taken from <a href="https://mapicons.mapsmarker.com">Maps Icons Collection</a>
+                </ul>
+            </div>
         </div>
     </div>
     <div id="map-canvas" class="map-canvas"></div>

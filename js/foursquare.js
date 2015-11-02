@@ -63,7 +63,7 @@ var foursquare = {
                 section: section
             }
         }).done(function(data) {
-            if (data.response.groups.length === 0) {
+            if (!data.response.groups || data.response.groups.length === 0) {
                 return;
             }
 
