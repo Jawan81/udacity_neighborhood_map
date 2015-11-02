@@ -167,10 +167,17 @@ function initAsync() {
 function initialize() {
     "use strict";
     var mapCanvas = document.getElementById("map-canvas");
-    googleMaps.initialize(mapCanvas, initialAddress);
-    var viewModel = new SearchViewModel(initialAddress);
+    var storageManager = new StorageManager({storage: window.localStorage});
+    var location = storageManager.getLocation();
+
+    if (typeof(location) === "undefined") {
+        location = initialAddress;
+        storageManager.storeLocation(location);
+    }
+
+    googleMaps.initialize(mapCanvas, location);
+    var viewModel = new SearchViewModel(location);
     ko.applyBindings(viewModel);
-    placesManager.initialize(viewModel.activePlaces, viewModel.activatedTypes(), viewModel.activatedApis(), googleMaps);
 
     var addPlace = function(place) {
         placesManager.addPlace(place);
@@ -195,7 +202,18 @@ function initialize() {
             resultCallback: addPlace
         });
 
-        update();
+        var initiateSearch = placesManager.initialize({
+            activePlaces: viewModel.activePlaces,
+            activatedTypes: viewModel.activatedTypes(),
+            activatedApis: viewModel.activatedApis(),
+            googleMaps: googleMaps,
+            storageManager: storageManager
+        });
+
+        if (initiateSearch) {
+            update();
+        }
+
         wikipedia.search(initialAddress.name);
     });
 

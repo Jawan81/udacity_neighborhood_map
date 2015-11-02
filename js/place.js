@@ -83,10 +83,9 @@ function Place(data) {
                     return undefined;
                 }
 
-                return {
-                    lng: data.lng,
-                    lat: data.lat
-                };
+                data.location = new google.maps.LatLng(data.lat, data.lng);
+
+                return data.location;
             },
             set: function(location) {
                 data.location = location;
@@ -186,6 +185,29 @@ function Place(data) {
         "api": {
             get: function() {
                 return data.api;
+            }
+        },
+        /**
+         * Returns a JSON version of the place.
+         */
+        "json": {
+            get: function() {
+                return JSON.stringify({
+                    id: self.id,
+                    name: self.name,
+                    renderName: self.renderName,
+                    lat: self.lat,
+                    lng: self.lng,
+                    active: self.active,
+                    address: self.address,
+                    icon: self.icon,
+                    url: self.url,
+                    iconSize: self.iconSize,
+                    type: self.type,
+                    priority: self.priority,
+                    api: self.api
+                    // marker and location can't be stringified
+                });
             }
         }
     });

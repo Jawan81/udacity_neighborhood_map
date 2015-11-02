@@ -9,12 +9,18 @@
  */
 var placesManager = {
     places: [],
-    initialize: function(activePlaces, activeTypes, activeApis, googleMaps) {
-        this.activePlaces = activePlaces;
-        this.activeTypes = activeTypes;
-        this.activeApis = activeApis;
-        this.googleMaps = googleMaps;
+    initialize: function(data) {
+        this.activePlaces = data.activePlaces;
+        this.activatedTypes = data.activatedTypes;
+        this.activatedApis = data.activatedApis;
+        this.googleMaps = data.googleMaps;
+        this.storageManager = data.storageManager;
         this.filterQuery = '';
+
+        this.places = this.storageManager.getPlaces();
+        this.update();
+
+        return this.places.length === 0;
     },
     /**
      * Adds a place.
@@ -41,11 +47,13 @@ var placesManager = {
             // Geocode in case the Place's location is unknown
             googleMaps.geocodePlace(place, function (updatedPlace) {
                 self.places.push(updatedPlace);
+                self.storageManager.addPlace(updatedPlace);
                 googleMaps.createMarkerForPlace(updatedPlace);
             });
         } else {
             this.places.push(place);
             this.googleMaps.createMarkerForPlace(place);
+            self.storageManager.addPlace(place);
         }
     },
     /**
@@ -56,10 +64,20 @@ var placesManager = {
      */
     changeCity: function(selected) {
         this.clearAll();
+        this.storageManager.clearAllPlaces();
+
+        var gmLocation = selected.result.geometry.location;
+        var location = {
+            name: selected.name,
+            lat: gmLocation.lat(),
+            lng: gmLocation.lng()
+        };
+
+        this.storageManager.storeLocation(location);
 
         googleMaps.setCenter({
             name: selected.name,
-            location: selected.result.geometry.location
+            location: gmLocation
         });
     },
     /**
@@ -69,7 +87,7 @@ var placesManager = {
      * @param apis
      */
     updateActiveApis: function(apis) {
-        this.activeApis = apis;
+        this.activatedApis = apis;
         this.update();
     },
     /**
@@ -79,7 +97,7 @@ var placesManager = {
      * @param types
      */
     updateActiveTypes: function(types) {
-        this.activeTypes = types;
+        this.activatedTypes = types;
         this.update();
     },
     /**
@@ -146,8 +164,8 @@ var placesManager = {
      * @returns {boolean}
      */
     isPlaceActive: function(place) {
-        return 0 <= this.activeApis.indexOf(place.api) &&
-            0 <= this.activeTypes.indexOf(place.type) &&
+        return 0 <= this.activatedApis.indexOf(place.api) &&
+            0 <= this.activatedTypes.indexOf(place.type) &&
             (this.filterQuery === '' || 0 <= place.name.toLowerCase().indexOf(this.filterQuery));
     },
     /**

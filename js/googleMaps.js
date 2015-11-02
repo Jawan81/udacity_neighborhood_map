@@ -161,6 +161,10 @@ var googleMaps = {
      * @param {Place} place The place to hide or show.
      */
     showOrHidePlace: function(place) {
+        if (!place.marker) {
+            return;
+        }
+
         if(place.active) {
             place.marker.setMap(this.map);
         } else {
