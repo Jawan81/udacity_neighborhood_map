@@ -1,4 +1,6 @@
-"use strict";
+/*global
+    googleMaps
+ */
 
 /**
  * The Places Manager manages the array of currently stored places and active places.
@@ -95,6 +97,7 @@ var placesManager = {
      * Deletes all places.
      */
     clearAll: function() {
+        var self = this;
         this.places.forEach(function(place) {
             place.active = false;
             self.googleMaps.showOrHidePlace(place);
@@ -143,9 +146,9 @@ var placesManager = {
      * @returns {boolean}
      */
     isPlaceActive: function(place) {
-        return 0 <= this.activeApis.indexOf(place.api)
-            && 0 <= this.activeTypes.indexOf(place.type)
-            && (this.filterQuery === '' || 0 <= place.name.toLowerCase().indexOf(this.filterQuery));
+        return 0 <= this.activeApis.indexOf(place.api) &&
+            0 <= this.activeTypes.indexOf(place.type) &&
+            (this.filterQuery === '' || 0 <= place.name.toLowerCase().indexOf(this.filterQuery));
     },
     /**
      * In case the user changed the filter query this function must be called.

@@ -1,4 +1,6 @@
-"use strict";
+/*global
+    ko, googleMaps, placesManager, wikipedia, Place, document, $
+*/
 
 /**
  * Defines Knockout's view model.
@@ -7,6 +9,7 @@
  * @constructor
  */
 var SearchViewModel = function(address){
+    "use strict";
     var self = this;
     self.searchValue = ko.observable(address.name);
 
@@ -137,6 +140,7 @@ var initialAddress = {
  * Called by Google Maps JS as a callback after the library is loaded asynchronously.
  */
 function initialize() {
+    "use strict";
     var mapCanvas = document.getElementById("map-canvas");
     googleMaps.initialize(mapCanvas, initialAddress);
     var viewModel = new SearchViewModel(initialAddress);
@@ -201,5 +205,5 @@ function initialize() {
             }
         }, 500);
     });
-};
+}
 

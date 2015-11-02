@@ -1,4 +1,6 @@
-"use strict";
+/*global
+    googleMaps, console, Place, document, $
+ */
 
 /**
  * The Wikipedia API.

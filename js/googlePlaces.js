@@ -1,4 +1,6 @@
-"use strict";
+/*global
+ Place, google
+ */
 
 /**
  * The Google Places API.

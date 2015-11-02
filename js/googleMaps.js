@@ -1,4 +1,6 @@
-"use strict";
+/*global
+ Place, google
+ */
 
 /**
  * The Google Maps API.
@@ -91,9 +93,9 @@ var googleMaps = {
      * @param marker The Google Map marker.
      */
     markerBounce: function(marker) {
-        if (null !== this.currentMarker
-            && this.currentMarker !== marker
-            && this.currentMarker.getAnimation() !== null) {
+        if (null !== this.currentMarker &&
+            this.currentMarker !== marker &&
+            this.currentMarker.getAnimation() !== null) {
             this.currentMarker.setAnimation(null);
         }
 

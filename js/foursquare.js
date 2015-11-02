@@ -1,4 +1,6 @@
-"use strict";
+/*global
+    Place, $
+ */
 
 /**
  * The Foursquare API.

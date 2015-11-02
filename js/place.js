@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * The Place object stores data for a specific place that can be displayed on a map.
  *
@@ -7,6 +5,7 @@
  * @constructor
  */
 function Place(data) {
+    "use strict";
     var self = this;
 
     /**
