@@ -134,10 +134,35 @@ var initialAddress = {
     lng: 9.9936818
 };
 
+var domReady = false;
+var googleMapReady = false;
+
+/**
+ * Event handler for the DOM ready event.
+ *
+ * Ensures that initialize() is only called when both the Google Maps library and the DOM are ready.
+ */
+document.addEventListener("DOMContentLoaded", function(event) {
+    domReady = true;
+    if (googleMapReady) {
+        initialize();
+    }
+});
+
+/**
+ * Called by Google Maps JS as a callback after the library is loaded asynchronously.
+ *
+ * Ensures that initialize() is only called when both the Google Maps library and the DOM are ready.
+ */
+function initAsync() {
+    googleMapReady = true;
+    if (domReady) {
+        initialize();
+    }
+}
 
 /**
  * Initializes the project.
- * Called by Google Maps JS as a callback after the library is loaded asynchronously.
  */
 function initialize() {
     "use strict";

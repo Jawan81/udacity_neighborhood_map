@@ -91,7 +91,7 @@ var placesManager = {
         if (typeof(place.icon) !== 'undefined') {
             return;
         }
-        place.icon = 'icon/' + place.type + '.png';
+        place.icon = 'dist/icon/' + place.type + '.png';
     },
     /**
      * Deletes all places.

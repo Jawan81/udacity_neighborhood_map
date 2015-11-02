@@ -13,6 +13,19 @@ git clone https://github.com/Jawan81/udacity_neighborhood_map.git .
 
 or download and unzip the [repository's archive file](https://github.com/Jawan81/udacity_neighborhood_map/archive/master.zip)
 
+If you don't have Gulp, Node.js and npm yet install them according to the instructions on [gulpjs.com](http://gulpjs.com).
+
+Open your command line and go to the project's root path, install gulp dependencies and run the Gulp tasks.
+
+```
+# Go to project root
+cd path/to/project
+# Install dependencies
+npm install
+# run gulp tasks
+gulp
+```
+
 Then open the index.html file in the repository with your favorite browser. No web server is required to run the project.
 
 Usage
@@ -25,7 +38,7 @@ methods explained below.
 ## City Search
 Start typing the first letters of your favorite city in the "City Search" input field. The app will try to determine the
 city's full name by requesting the name from the Google Maps API and will present you a list of possible matches.
-By clicking on one of the cities in the list the map will be centered to that city. The app will then search for 
+By clicking on one of the cities in the list the map will be centered to that city. The app will then search for
 interesting places and will present them as map markers on the map and as the "Active Places List" in the left panel.
 
 ## The Map

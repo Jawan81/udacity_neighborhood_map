@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <link href='https://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet'>
-    <link href="css/main.css" rel="stylesheet">
+    <link href="dist/css/main.css" rel="stylesheet">
     <title>Jawan's Places</title>
 </head>
 <body>
@@ -20,7 +20,7 @@
             <div class="suggestions">
                 <ul data-bind="foreach: searchResults">
                     <li>
-                        <img alt="City Icon" src="icon/city.png">
+                        <img alt="City Icon" src="dist/icon/city.png">
                         <span data-bind="text: name, click: $parent.selectAddress"></span>
                     </li>
                 </ul>
@@ -33,7 +33,6 @@
                 <label for="filter-query">Filter by Name</label>
                 <input type="text" id="filter-query" class="filter-query" placeholder=""
                        data-bind='value: filterQuery, valueUpdate: "afterkeydown", event: { keyup: filter }'/>
-
                 <fieldset class="filter-item filters-left">
                     <legend>Services</legend>
                     <div>
@@ -65,14 +64,13 @@
                     </div>
                 </fieldset>
                 <label class="filters-bottom" for="active-places">Active Places</label>
-                <select id="active-places" class="active-places" size="20" class="filter-item filters-bottom" multiple="multiple" data-bind="options: activePlaces,
+                <select id="active-places" class="active-places filter-item filters-bottom" size="20" multiple="multiple" data-bind="options: activePlaces,
                  optionsText: function(place) {
                     return place.name + ' (' + place.api + ')';
                  },
                  value: selectedActivePlace"> </select>
                 <input type="button" class="filter-item filters-bottom" data-bind="click: clearAll" value="Clear All">
             </form>
-
         </div>
         <div class="footer">
             <h4>Credits</h4>
@@ -81,16 +79,10 @@
             </ul>
         </div>
     </div>
-    <div class="map-canvas"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&callback=initialize" async defer></script>
+    <div id="map-canvas" class="map-canvas"></div>
     <script src="js/lib/jquery-2.1.4.min.js"></script>
     <script src="js/lib/knockout-3.3.0.js"></script>
-    <script src="js/place.js"></script>
-    <script src="js/googleMaps.js"></script>
-    <script src="js/googlePlaces.js"></script>
-    <script src="js/foursquare.js"></script>
-    <script src="js/wikipedia.js"></script>
-    <script src="js/placesManager.js"></script>
-    <script src="js/app.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&callback=initAsync" async defer></script>
+    <script src="dist/js/bundle.min.js"></script>
 </body>
 </html>
