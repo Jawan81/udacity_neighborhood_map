@@ -175,6 +175,7 @@ function initialize() {
         storageManager.storeLocation(location);
     }
 
+    updatePanelMode();
     googleMaps.initialize(mapCanvas, location);
     var viewModel = new SearchViewModel(location);
     ko.applyBindings(viewModel);
@@ -249,21 +250,52 @@ function initialize() {
         }, 500);
     });
 
+    var menuCollapsed = true;
+
     /**
      * Show or collapse panel for mobile displays.
      */
     $('#mobile-menu').click(function() {
-        $('.panel').toggleClass('full-height');
-        $('.collapsable').toggle();
+        if (menuCollapsed) {
+            $('.collapsable').addClass('show').removeClass('hide');
+            $('.panel').addClass('full-height');
+            menuCollapsed = false;
+        } else {
+            $('.collapsable').addClass('hide').removeClass('show');
+            $('.panel').removeClass('full-height');
+            menuCollapsed = true;
+        }
+    });
+
+   var lastHeight = $('.active-places').height();
+
+    /**
+     * Make sure the panel is displayed correctly on resize (in dev tools).
+     */
+    $(window).resize(function() {
+        var height = $('.active-places').height();
+        if (lastHeight  <= 150 && height > 150) {
+            $('.collapsable').addClass('show').removeClass('hide');
+            $('.panel').removeClass('full-height');
+            menuCollapsed = true;
+        } else if (lastHeight > 150 && height <= 150) {
+            $('.collapsable').addClass('hide').removeClass('show');
+            $('.panel').removeClass('full-height');
+            menuCollapsed = true;
+        }
+
+        lastHeight = height;
     });
 
     /**
-     * Make sure the panel is shown on resize (in dev tools).
+     * Shows or hides the panel according to whether mobile or desktop view is active.
      */
-    $(window).resize(function() {
+    function updatePanelMode() {
         if ($('.active-places').height() > 150) {
-            $('.collapsable').show();
+            $('.collapsable').addClass('show').removeClass('hide');
+        } else {
+            $('.collapsable').addClass('hide').removeClass('show');
         }
-    });
+    }
 }
 

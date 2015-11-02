@@ -56,6 +56,16 @@ h3 {
 }
 
 
+.hide {
+    display: none;
+}
+
+
+.show {
+    display: block;
+}
+
+
 /* Desktop screens */
 @media screen and (min-width:600px) and (min-height: 740px) {
     .title {
@@ -119,13 +129,13 @@ h3 {
 
     .brand {
         float: left;
-        width: 90%;
+        width: 85%;
     }
 
 
     .menu {
         float: left;
-        width: 10%;
+        width: 15%;
     }
 
 
@@ -134,13 +144,17 @@ h3 {
     }
 
 
-    .panel {
-        width: 100%;
+    @media screen and (max-width: 399px) {
+        .panel {
+            width: 100%;
+        }
     }
 
 
-    .collapsable {
-        display: none;
+    @media screen and (min-width: 400px) {
+        .panel {
+            width: 300px;
+        }
     }
 
 
