@@ -52,7 +52,7 @@ gulp.task('build-css', function() {
 
 // Cleanup task
 gulp.task('clean', function(cb) {
-    del(['dist/css', 'dist/js', 'dist/icon'], cb)
+    del(['dist/css', 'dist/js', 'dist/icon'], cb);
 });
 
 // Rerun the task when a file changes
